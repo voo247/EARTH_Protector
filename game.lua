@@ -55,8 +55,27 @@ function scene:create( event )
 
 	Runtime:addEventListener("key", onKeyEvent)
 
+	--- 외계인 퀘스트 -------
+	local quest = display.newImage("image/퀘스트박스.png")
+	quest.x, quest.y = 300, 860
+
+	local function checkQuest(quest)
+		if (player.x > quest.x - 100 and player.x < quest.x + 100
+			and player.y > quest.y - 100 and player.y < quest.y + 100) then
+
+			composer.showOverlay("quest_alien")
+			-- display.remove(quest)
+		end
+	end
+
+	local function onEnterFrame(event)
+    	checkQuest(quest)
+	end
+
+	Runtime:addEventListener("enterFrame", onEnterFrame)
 
 
+	
 
 	--- 점수 추가 -----------
 	local score = display.newText(0, display.contentWidth*0.62, display.contentHeight*0.1)
