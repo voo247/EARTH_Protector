@@ -55,6 +55,42 @@ function scene:create( event )
 
 	Runtime:addEventListener("key", onKeyEvent)
 
+	--- 점수 추가 -----------
+	local score = display.newText(0, display.contentWidth*0.625, display.contentHeight*0.095)
+ 	score.size = 70
+ 	score:setFillColor(255, 255, 255)
+
+	--- 타이머 추가 -----------
+	local time= display.newText(75, display.contentWidth*0.37, display.contentHeight*0.1)
+ 	time.size = 100
+ 	time:setFillColor(0)
+
+	-- 퀘스트 진행 중 기존 게임화면에 비의도적 변동사항이 없도록 키보드 입력 중단/재개하는 코드 --
+	local function questStart()
+		Runtime:removeEventListener("key", onKeyEvent)
+	end
+	local function questEnd(event)
+		if not Runtime:hasEventListener("key", onKeyEvent) then
+			Runtime:addEventListener("key", onKeyEvent)
+		end
+	end
+
+	Runtime:addEventListener("questEnd", questEnd)
+
+	--[[ @@ 용법
+	1. 퀘스트 관련 코딩을 lua로 하신다면
+	해당 씬을 끝낼 때 'scene:destroy()' 코드를 추가해주세요(create에 추가)
+	
+	destroy에는 
+	local event = { name = "questEnd" }
+	Runtime:dispatchEvent(event)
+	를 추가해주세요
+
+	2. game.lua에 바로 코드를 입력하시는 경우
+	questStart(), questEnd() 함수 직접 호출해주시면 사용가능합니다.
+	]]
+
+	
 	--- 외계인 퀘스트 -------
 	local quest1 = display.newImage("image/총.png")
 	quest1.height = 150
@@ -76,6 +112,21 @@ function scene:create( event )
 
 	Runtime:addEventListener("enterFrame", onEnterFrame)
 
+	-- 일반 퀘스트 2번 실행 : 분리수거(드래그) --
+	local quest2Icon = display.newImage("image/퀘스트박스.png")
+	quest2Icon.x, quest2Icon.y = display.contentWidth*0.29, display.contentHeight*0.325 -- @@위치 수정 요
+    quest2Icon.height, quest2Icon.width = 150, 150
+
+	local function touchQuest2Icon(event)
+		if event.phase == "ended" then
+			display.remove(quest2Icon)
+			questStart()
+			composer.gotoScene("questRecycle", {effect = "slideRight", time = 1000})
+		end
+	end
+	
+	quest2Icon:addEventListener("touch", touchQuest2Icon)
+
 	--- 에어컨 온도 맞추기 -----
 	-- local quest2 = display.newImage("image/퀘스트박스.png")
 	-- quest2.x, quest2.y = 300, 560
@@ -96,17 +147,6 @@ function scene:create( event )
 	-- Runtime:addEventListener("enterFrame", onEnterFrame)
 	
 
-	--- 점수 추가 -----------
-	local score = display.newText(0, display.contentWidth*0.62, display.contentHeight*0.1)
-	score.size = 100
-
-	score:setFillColor(0)
-
-	--- 타이머 추가 -----------
-	local time= display.newText(75, display.contentWidth*0.37, display.contentHeight*0.1)
- 	time.size = 100
- 	time:setFillColor(0)
-
 
  	sceneGroup:insert(background)
  	sceneGroup:insert(player)
@@ -115,7 +155,7 @@ function scene:create( event )
 end
 
 
-function scene:show( event )
+--[[function scene:show( event )
 	local sceneGroup = self.view
 	local phase = event.phase
 	
@@ -150,7 +190,7 @@ function scene:destroy( event )
 	-- 
 	-- INSERT code here to cleanup the scene
 	-- e.g. remove display objects, remove touch listeners, save state, etc.
-end
+end]]
 
 ---------------------------------------------------------------------------------
 
