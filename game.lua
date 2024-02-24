@@ -1,6 +1,6 @@
 -----------------------------------------------------------------------------------------
 --
--- game.lua
+-- view2.lua
 --
 -----------------------------------------------------------------------------------------
 
@@ -55,27 +55,8 @@ function scene:create( event )
 
 	Runtime:addEventListener("key", onKeyEvent)
 
-	--- 외계인 퀘스트 -------
-	local quest = display.newImage("image/퀘스트박스.png")
-	quest.x, quest.y = 300, 860
-
-	local function checkQuest(quest)
-		if (player.x > quest.x - 100 and player.x < quest.x + 100
-			and player.y > quest.y - 100 and player.y < quest.y + 100) then
-
-			composer.showOverlay("quest_alien")
-			-- display.remove(quest)
-		end
-	end
-
-	local function onEnterFrame(event)
-    	checkQuest(quest)
-	end
-
-	Runtime:addEventListener("enterFrame", onEnterFrame)
 
 
-	
 
 	--- 점수 추가 -----------
 	local score = display.newText(0, display.contentWidth*0.62, display.contentHeight*0.1)
@@ -83,16 +64,71 @@ function scene:create( event )
 
 	score:setFillColor(0)
 
-	--- 타이머 추가 -----------
-	local time= display.newText(75, display.contentWidth*0.37, display.contentHeight*0.1)
- 	time.size = 100
- 	time:setFillColor(0)
 
 
- 	sceneGroup:insert(background)
- 	sceneGroup:insert(player)
- 	sceneGroup:insert(score)
- 	sceneGroup:insert(time)
+    --- 수락이미지 ----------------
+   local accept = display.newImage("image/수락_이미지.png")
+	accept.x, accept.y = display.contentWidth*0.8, display.contentHeight*0.3
+    accept.height = 100
+    accept.width = 100
+    
+   
+
+
+   ------ 스페셜 퀘스트 1번 --------------------------------------
+local function moveAlien(alien)
+    local destX = math.random(display.contentWidth)
+    local destY = math.random(display.contentHeight)
+    
+    transition.to(alien, {time = 1000, x = destX, y = destY, onComplete = function()
+        moveAlien(alien)
+    end})
+end
+
+-- 외계인 생성 및 터치 이벤트 처리
+local function createAlien()
+    local alien = display.newImage("image/외계인.png")
+    alien.height = 200
+    alien.width = 200
+    alien.x, alien.y = math.random(display.contentWidth), math.random(display.contentHeight)
+    
+    -- 외계인 터치 이벤트 처리
+    local function onTouch(event)
+        if event.phase == "began" then
+            display.remove(alien)
+        end
+        return true
+    end
+
+    alien:addEventListener("touch", onTouch)
+    
+    moveAlien(alien)
+    return alien
+end
+
+-- 외계인 여러 개 생성
+local function createAliens(numAliens)
+    for i = 1, numAliens do
+        createAlien()
+    end
+end
+
+local function onAcceptTouch(event)
+    if event.phase == "ended" then
+        display.remove(accept)
+
+        display.remove(player)
+        player = display.newImage("image/총든_플레이어.png")
+        player.x, player.y = display.contentWidth * 0.16, display.contentHeight * 0.3
+
+        createAliens(4)
+    end
+    return true
+end
+
+accept:addEventListener("touch", onAcceptTouch)
+
+----------------------------------끝
 end
 
 
