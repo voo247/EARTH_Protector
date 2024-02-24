@@ -20,8 +20,66 @@ function scene:create( event )
  	title:setFillColor( 0.6 )
  	title.size = 70
 
- 	local alien = display.newImage("image/외계인.png")
- 	alien.x, alien.y = 1000, 500
+ 	local player = display.newImage("image/캐릭터_총.png")
+ 	player.height = 300
+	player.width = 300
+	player.x, player.y = 1700, 600
+
+ 	----- 외계인 스페셜 퀘스트 --------
+ 	local function moveAlien(alien)
+	    local destX = math.random(display.contentWidth/2)
+	    local destY = math.random(display.contentHeight/2)
+	    
+	    transition.to(alien, {time = 1000, x = destX, y = destY, onComplete = function()
+	        moveAlien(alien)
+	    end})
+	end
+
+	-- 외계인 생성 및 터치 이벤트 처리
+	local function createAlien()
+	    local alien = display.newImage("image/외계인.png")
+	    alien.height = 200
+	    alien.width = 200
+	    alien.x, alien.y = math.random(display.contentWidth), math.random(display.contentHeight)
+	    
+	    -- 외계인 터치 이벤트 처리
+	    local function onTouch(event)
+	        if event.phase == "began" then
+	            display.remove(alien)
+	        end
+	        return true
+	    end
+
+	    alien:addEventListener("touch", onTouch)
+	    
+	    moveAlien(alien)
+	    return alien
+	end
+
+	-- 외계인 여러 개 생성
+	local function createAliens(numAliens)
+	    for i = 1, numAliens do
+	        createAlien()
+	    end
+	end
+
+	local function onAcceptTouch(event)
+	    if event.phase == "ended" then
+	        display.remove(accept)
+
+	        display.remove(player)
+	        player = display.newImage("image/캐릭터_총.png")
+	        player.x, player.y = display.contentWidth * 0.16, display.contentHeight * 0.3
+
+	        createAliens(4)
+	    end
+	    return true
+	end
+
+	background:addEventListener("touch", onAcceptTouch)
+
+
+
 
  	function title:tap( event )
  		--
@@ -30,6 +88,9 @@ function scene:create( event )
 
  	-- sceneGroup:insert(background)
  	-- sceneGroup:insert(title)
+ 	-- sceneGroup:insert(accept)
+ 	-- sceneGroup:insert(alien)
+ 	-- sceneGroup:insert(player)
 end
 
 function scene:show( event )
