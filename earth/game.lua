@@ -55,8 +55,44 @@ function scene:create( event )
 
 	Runtime:addEventListener("key", onKeyEvent)
 
+	--- 외계인 퀘스트 -------
+	local quest1 = display.newImage("image/퀘스트박스.png")
+	quest1.x, quest1.y = 300, 860
 
+	local function checkQuest(quest)
+		if (player.x > quest.x - 100 and player.x < quest.x + 100
+			and player.y > quest.y - 100 and player.y < quest.y + 100) then
 
+			composer.showOverlay("quest_alien")
+			-- display.remove(quest)
+		end
+	end
+
+	local function onEnterFrame(event)
+    	checkQuest(quest1)
+	end
+
+	Runtime:addEventListener("enterFrame", onEnterFrame)
+
+	--- 에어컨 온도 맞추기 -----
+	local quest2 = display.newImage("image/퀘스트박스.png")
+	quest2.x, quest2.y = 300, 560
+
+	local function checkQuest2(quest)
+		if (player.x > quest.x - 100 and player.x < quest.x + 100
+			and player.y > quest.y - 100 and player.y < quest.y + 100) then
+
+			composer.showOverlay("quest_temp")
+			-- display.remove(quest)
+		end
+	end
+
+	local function onEnterFrame(event)
+    	checkQuest2(quest2)
+	end
+
+	Runtime:addEventListener("enterFrame", onEnterFrame)
+	
 
 	--- 점수 추가 -----------
 	local score = display.newText(0, display.contentWidth*0.62, display.contentHeight*0.1)
@@ -64,6 +100,16 @@ function scene:create( event )
 
 	score:setFillColor(0)
 
+	--- 타이머 추가 -----------
+	local time= display.newText(75, display.contentWidth*0.37, display.contentHeight*0.1)
+ 	time.size = 100
+ 	time:setFillColor(0)
+
+
+ 	sceneGroup:insert(background)
+ 	sceneGroup:insert(player)
+ 	sceneGroup:insert(score)
+ 	sceneGroup:insert(time)
 end
 
 
