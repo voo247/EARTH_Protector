@@ -65,6 +65,7 @@ function scene:create( event )
  	time.size = 100
  	time:setFillColor(0)
 
+
 	-- 퀘스트 진행 중 기존 게임화면에 비의도적 변동사항이 없도록 키보드 입력 중단/재개하는 코드 --
 	local function questStart()
 		Runtime:removeEventListener("key", onKeyEvent)
@@ -124,8 +125,23 @@ function scene:create( event )
 			composer.gotoScene("questRecycle", {effect = "slideRight", time = 1000})
 		end
 	end
-	
 	quest2Icon:addEventListener("touch", touchQuest2Icon)
+
+	-----일반 퀘스트(전기 스위치 끄기 퀘스트)------------
+	local light = display.newImage("image/퀘스트박스.png")
+	light.x, light.y = display.contentWidth*0.85, display.contentHeight*0.55
+	light.height, light.width = 150,150
+	local function lightQuest(event)
+		if event.phase == "ended" then
+			display.remove(light)
+			questStart()
+			composer.gotoScene("light_off_game")
+		end
+	end
+	light:addEventListener("touch", lightQuest)
+
+
+	
 
 	--- 에어컨 온도 맞추기 -----
 	-- local quest2 = display.newImage("image/퀘스트박스.png")
