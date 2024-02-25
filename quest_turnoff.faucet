@@ -3,9 +3,10 @@ local currentImageIndex = 1  -- 현재 표시되는 이미지의 인덱스
 local tapCount = 0  -- 탭한 횟수
 
 local function loadImages()
-    faucetImages[1] = love.graphics.newImage("faucet_on.png")  -- 이미지 1 로드
-    faucetImages[2] = love.graphics.newImage("faucet_turning.png")  -- 이미지 2 로드
-    faucetImages[3] = love.graphics.newImage("faucet_off.png")  -- 이미지 3 로드
+    faucetImages[1] = love.graphics.newImage("수도꼭지1.png") 
+    faucetImages[2] = love.graphics.newImage("수도꼭지2.png")  
+    faucetImages[3] = love.graphics.newImage("수도꼭지3.png")  
+    faucetImages[4] = love.graphics.newImage("수도꼭지4.png")  
 end
 
 function love.load()
@@ -26,16 +27,16 @@ end
 
 function love.mousepressed(x, y, button, istouch, presses)
     if button == 1 then  -- 좌클릭일 때
-        tapCount = tapCount + 1  -- 탭한 횟수 증가
-
-        if tapCount % 2 == 1 then
+        tapCount = (tapCount + 1) % 6  -- 탭한 횟수 증가하면서 0부터 5까지 순환
+        
+        if tapCount == 0 or tapCount == 2 then
             currentImageIndex = 1  -- 이미지 1 표시
-        else
+        elseif tapCount == 1 or tapCount == 3 then
             currentImageIndex = 2  -- 이미지 2 표시
-        end
-
-        if tapCount >= 5 then
-            currentImageIndex = 3  -- 이미지 3으로 변경하여 물을 잠기는 효과 구현
+        elseif tapCount == 4 then
+            currentImageIndex = 3  -- 이미지 3 표시
+        elseif tapCount == 5 then
+            currentImageIndex = 4  -- 이미지 4 표시
         end
     end
 end
