@@ -32,29 +32,29 @@ function scene:create( event )
     end
 
     -- 쓰레기통 구현 --
-    local trashCan = display.newImage("image/쓰레기통_can.png")
+    local trashCan = display.newImage("image/자료2/쓰레기통_can.png")
     trashCan.x, trashCan.y = display.contentWidth * 0.2475, display.contentHeight * 0.52
     trashCan.height, trashCan.width = trashCan.height * 2., trashCan.width * 2
-    local trashGlass = display.newImage("image/쓰레기통_glass.png")
+    local trashGlass = display.newImage("image/자료2/쓰레기통_glass.png")
     trashGlass.x, trashGlass.y = display.contentWidth * 0.4125, display.contentHeight * 0.52
     trashGlass.height, trashGlass.width = trashGlass.height * 2, trashGlass.width * 2
-    local trashPlastic = display.newImage("image/쓰레기통_plastic.png")
+    local trashPlastic = display.newImage("image/자료2/쓰레기통_plastic.png")
     trashPlastic.x, trashPlastic.y = display.contentWidth * 0.5775, display.contentHeight * 0.52
     trashPlastic.height, trashPlastic.width = trashPlastic.height * 2, trashPlastic.width * 2
-    local trashWaste = display.newImage("image/쓰레기통_waste.png")
+    local trashWaste = display.newImage("image/자료2/쓰레기통_waste.png")
     trashWaste.x, trashWaste.y = display.contentWidth * 0.7425, display.contentHeight * 0.52
     trashWaste.height, trashWaste.width = trashWaste.height * 2, trashWaste.width * 2
     
     -- 쓰레기 랜덤 배치 --
     local imagePaths = {
-        "image/쓰레기1.png",
-        "image/쓰레기2.png",
-        "image/쓰레기3.png",
-        "image/쓰레기4.png",
-        "image/쓰레기5.png",
-        "image/쓰레기6.png",
-        "image/쓰레기7.png",
-        "image/쓰레기8.png"
+        "image/자료2/쓰레기1.png",
+        "image/자료2/쓰레기2.png",
+        "image/자료2/쓰레기3.png",
+        "image/자료2/쓰레기4.png",
+        "image/자료2/쓰레기5.png",
+        "image/자료2/쓰레기6.png",
+        "image/자료2/쓰레기7.png",
+        "image/자료2/쓰레기8.png"
     }
     
     local trashGroup = display.newGroup()
