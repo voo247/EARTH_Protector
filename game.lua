@@ -6,6 +6,7 @@
 
 local composer = require( "composer" )
 local scene = composer.newScene()
+local score
 
 function scene:create( event )
 	local sceneGroup = self.view
@@ -56,7 +57,7 @@ function scene:create( event )
 	Runtime:addEventListener("key", onKeyEvent)
 
 	--- 점수 추가 -----------
-	local score = display.newText(0, display.contentWidth*0.625, display.contentHeight*0.095)
+	score = display.newText(0, display.contentWidth*0.625, display.contentHeight*0.095)
  	score.size = 70
  	score:setFillColor(255, 255, 255)
 
@@ -104,37 +105,131 @@ function scene:create( event )
 		specialQ2 = "F"
 	}
 
-	
-	--- 외계인 퀘스트 -------
-	local quest1 = display.newImage("image/자료2/총.png")
-	quest1.height = 150
-	quest1.width = 150
-	quest1.x, quest1.y = 300, 860
 
-	local function checkQuest(quest)
-		if (player.x > quest.x - 100 and player.x < quest.x + 100
-			and player.y > quest.y - 100 and player.y < quest.y + 100) then
+	------ 스페셜 퀘스트 1번 : 외계인 침공 --------------------------------------
+	local aliensCreated = 0 -- 생성된 외계인의 수
+	local alien_score = 0 -- 외계인 사냥 점수
+	local alien_timer -- 외계인 퀘스트 타이머 
+	local alien_timeAttack
+	local aliens = {} -- 외계인 테이블
 
-			composer.showOverlay("quest_alien")
-			display.remove(quest)
-			success.specialQ1 = "T"
+	--- 총 이미지 (수락) -------
+   local accept = display.newImage("image/자료2/총.png")
+	accept.x, accept.y = display.contentWidth*0.85, display.contentHeight*0.8
+    accept.height = 170
+    accept.width = 170
+
+	local function moveAlien(alien)
+	    local destX = math.random(display.contentWidth)
+	    local destY = math.random(display.contentHeight)
+	    
+	    transition.to(alien, {time = 1000, x = destX, y = destY, onComplete = function()
+	        moveAlien(alien)
+	    end})
+	end
+
+	-- 외계인 생성 및 터치 이벤트 처리
+	local function createAlien()
+	    local alien = display.newImage("image/배경_인물/외계인.png")
+	    alien.height = 200
+	    alien.width = 200
+	    alien.x, alien.y = math.random(display.contentWidth), math.random(display.contentHeight)
+	    
+	    -- 외계인 터치 이벤트 처리
+	    local function onTouch(event)
+	        if event.phase == "began" then
+	            display.remove(alien)
+	            alien_score = alien_score + 3
+	        end
+	        return true
+	    end
+
+	    alien:addEventListener("touch", onTouch)
+	    
+	    moveAlien(alien)
+	    table.insert(aliens, alien)
+	    return alien
+	end
+
+	-- 타이머 카운트 함수
+	local function alien_counter( event )
+		alien_timer.text = alien_timer.text - 1
+
+		if(alien_score == 30) then
+			score.text = score.text + 40
+			alien_score = 0
+			alien_timer.alpha = 0
+			accept.x = 3000
+		elseif(alien_timer.text == '-1' and alien_score < 30) then
+			for i = 0, (30 - alien_score)/3 do
+				local removedAlien = table.remove(aliens)  -- 테이블에서 외계인 제거
+                display.remove(removedAlien)
+	        end
+	        score.text = score.text - 40
+			alien_score = 0
+			alien_timer.alpha = 0
+			accept.x = 3000
 		end
 	end
 
-	-----일반 퀘스트(전기 스위치 끄기 퀘스트)------------
+	local function createAliensNearPlayer()
+	    -- 캐릭터와 총 이미지의 중심 위치 계산
+	    local playerCenterX, playerCenterY = player.x + player.width / 2, player.y + player.height / 2
+	    local acceptCenterX, acceptCenterY = accept.x + accept.width / 2, accept.y + accept.height / 2
+
+	    -- 캐릭터와 총 이미지 사이의 거리 계산
+	    local distance = math.sqrt((playerCenterX - acceptCenterX)^2 + (playerCenterY - acceptCenterY)^2)
+
+	    -- 플레이어와 총 이미지 사이의 거리가 일정 값 이하이고 외계인이 아직 생성되지 않은 경우에만 외계인 생성
+	    if distance <= 100 and aliensCreated < 10 then
+
+	        for i = 1, 10 do
+	            createAlien() -- 외계인 10마리 생성
+	            aliensCreated = 10 -- 생성된 외계인의 수를 10으로 설정하여 더 이상 생성되지 않도록 함
+	        end
+
+	        alien_timer = display.newText(15, display.contentWidth*0.43, display.contentHeight*0.105)
+		 	alien_timer.size = 85
+		 	alien_timer:setFillColor(1, 0, 0)
+		 	alien_timer.alpha = 0.8
+
+		 	alien_timeAttack = timer.performWithDelay(1000, alien_counter, 16)
+
+
+	        -- 캐릭터 이미지를 캐릭터_총 이미지로 변경
+	        display.remove(player)
+	        player = display.newImage("image/자료2/캐릭터_총.png")
+	        player.x, player.y = display.contentWidth*0.85, display.contentHeight*0.8
+	    end
+	end
+
+
+
+
+	local function onEnterFrame(event)
+	    createAliensNearPlayer()
+	end
+
+	Runtime:addEventListener("enterFrame", onEnterFrame)
+
+	------ 외계인 침공 끝 --------------------------------------
+
+
+
+	----- 일반 퀘스트 1번 실행 : 전기 스위치 끄기 ------------
 	local light = display.newImage("image/배경_인물/퀘스트박스.png")
 	light.x, light.y = display.contentWidth*0.85, display.contentHeight*0.55
 	light.height, light.width = 150,150
 	local lightquest = display.newImage("image/퀘스트알람/퀘스트_스위치.png")
 	lightquest.x, lightquest.y = display.contentWidth * 0.8, display.contentHeight * 0.45
-	local function checkQuest3( light )
+	local function checkQuest1( light )
 		if(player.x > light.x - 100 and player.x < light.x + 100
 			and player.y > light.y - 100 and player.y < light.y + 100) then
 
 			questStart()
 			composer.showOverlay("light_off_game")
 			display.remove(light)
-			success.q3 = "T"
+			success.q1 = "T"
 		end
 	end
 
@@ -155,26 +250,22 @@ function scene:create( event )
 	end
 
 
-	
 
-	--- 에어컨 온도 맞추기 -----
-	-- local quest2 = display.newImage("image/배경_인물/퀘스트박스.png")
-	-- quest2.x, quest2.y = 300, 560
+	-- 일반 퀘스트 3번 실행 : 에어컨 온도 맞추기 -----
+	local quest3Icon = display.newImage("image/배경_인물/퀘스트박스.png")
+	quest3Icon.x, quest3Icon.y = 300, 860
+	quest3Icon.height, quest3Icon.width = 150, 150
 
-	-- local function checkQuest2(quest)
-	-- 	if (player.x > quest.x - 100 and player.x < quest.x + 100
-	-- 		and player.y > quest.y - 100 and player.y < quest.y + 100) then
+	local function checkQuest3(quest3Icon)
+		if (player.x > quest3Icon.x - 100 and player.x < quest3Icon.x + 100
+			and player.y > quest3Icon.y - 100 and player.y < quest3Icon.y + 100) then
 
-	-- 		composer.showOverlay("quest_temp")
-	-- 		-- display.remove(quest)
-	-- 	end
-	-- end
-
-	-- local function onEnterFrame(event)
- --    	checkQuest2(quest2)
-	-- end
-
-	-- Runtime:addEventListener("enterFrame", onEnterFrame)
+			questStart()
+			composer.showOverlay("questTemp")
+			display.remove(quest3Icon)
+			success.q3 = "T"
+		end
+	end
 
 	
 	-- 일반 퀘스트 6번 : 걷기 --
@@ -198,14 +289,17 @@ function scene:create( event )
 	-- 퀘스트 반경 확인 --
 
 	local function onEnterFrame(event)
-    		if success.specialQ1 == "F" then
-			checkQuest(quest1)
+  --   		if success.specialQ1 == "F" then
+		-- 	checkQuest(quest1)
+		-- end
+		if success.q1 == "F" then
+			checkQuest1(light)
 		end
 		if success.q2 == "F" then
 			checkQuest2(quest2Icon)
 		end
 		if success.q3 == "F" then
-			checkQuest3(light)
+			checkQuest3(quest3Icon)
 		end
 		if success.q6 == "F" then
 			checkQuest6(quest6Icon)
