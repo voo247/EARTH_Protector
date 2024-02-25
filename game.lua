@@ -220,8 +220,6 @@ function scene:create( event )
 	local light = display.newImage("image/배경_인물/퀘스트박스.png")
 	light.x, light.y = display.contentWidth*0.85, display.contentHeight*0.55
 	light.height, light.width = 150,150
-	local lightquest = display.newImage("image/퀘스트알람/퀘스트_스위치.png")
-	lightquest.x, lightquest.y = display.contentWidth * 0.8, display.contentHeight * 0.45
 	local function checkQuest1( light )
 		if(player.x > light.x - 100 and player.x < light.x + 100
 			and player.y > light.y - 100 and player.y < light.y + 100) then
