@@ -15,11 +15,11 @@ function scene:create( event )
 	
 
 	--- 배경 추가------------
-	local background = display.newImageRect("image/배경.png", display.contentWidth, display.contentHeight)
+	local background = display.newImageRect("image/배경_인물/배경.png", display.contentWidth, display.contentHeight)
 	background.x, background.y = display.contentWidth/2, display.contentHeight/2
 
 	--- 캐릭터 추가 ---------
-	local player = display.newImage("image/캐릭터_옆면3.png")
+	local player = display.newImage("image/배경_인물/캐릭터_옆면3.png")
 	player.x, player.y = display.contentWidth*0.16, display.contentHeight*0.3
 	player.name = "player"
 
@@ -32,22 +32,22 @@ function scene:create( event )
 	        if event.keyName == "right" then
 	        	playerX, playerY = player.x, player.y
 	        	display.remove(player)
-	        	player = display.newImage("image/캐릭터_옆면3.png")
+	        	player = display.newImage("image/배경_인물/캐릭터_옆면3.png")
 	            player.x, player.y = playerX + 100, playerY
 	        elseif event.keyName == "left" then
 	        	playerX, playerY = player.x, player.y
 	        	display.remove(player)
-	        	player = display.newImage("image/캐릭터_옆면2.png")
+	        	player = display.newImage("image/배경_인물/캐릭터_옆면2.png")
 	            player.x, player.y = playerX - 100, playerY
 	        elseif event.keyName == "up" then
 	        	playerX, playerY = player.x, player.y
 	        	display.remove(player)
-	        	player = display.newImage("image/캐릭터_뒷면1.png")
+	        	player = display.newImage("image/배경_인물/캐릭터_뒷면1.png")
 	            player.x, player.y = playerX, playerY - 100
 	        elseif event.keyName == "down" then
 	            playerX, playerY = player.x, player.y
 	        	display.remove(player)
-	        	player = display.newImage("image/캐릭터_정면.png")
+	        	player = display.newImage("image/배경_인물/캐릭터_정면.png")
 	            player.x, player.y = playerX, playerY + 100
 	        end
 	    end
@@ -106,7 +106,7 @@ function scene:create( event )
 
 	
 	--- 외계인 퀘스트 -------
-	local quest1 = display.newImage("image/총.png")
+	local quest1 = display.newImage("image/자료2/총.png")
 	quest1.height = 150
 	quest1.width = 150
 	quest1.x, quest1.y = 300, 860
@@ -121,8 +121,21 @@ function scene:create( event )
 		end
 	end
 
+	-----일반 퀘스트(전기 스위치 끄기 퀘스트)------------
+	local light = display.newImage("image/배경_인물/퀘스트박스.png")
+	light.x, light.y = display.contentWidth*0.85, display.contentHeight*0.55
+	light.height, light.width = 150,150
+	local function lightQuest(event)
+		if event.phase == "ended" then
+			display.remove(light)
+			questStart()
+			composer.gotoScene("light_off_game")
+		end
+	end
+	light:addEventListener("touch", lightQuest)
+
 	-- 일반 퀘스트 2번 실행 : 분리수거(드래그) --
-	local quest2Icon = display.newImage("image/퀘스트박스.png")
+	local quest2Icon = display.newImage("image/배경_인물/퀘스트박스.png")
 	quest2Icon.x, quest2Icon.y = display.contentWidth*0.29, display.contentHeight*0.325 -- @@위치 수정 요
     quest2Icon.height, quest2Icon.width = 150, 150
 
@@ -137,24 +150,11 @@ function scene:create( event )
 		end
 	end
 
-	-----일반 퀘스트(전기 스위치 끄기 퀘스트)------------
-	local light = display.newImage("image/퀘스트박스.png")
-	light.x, light.y = display.contentWidth*0.85, display.contentHeight*0.55
-	light.height, light.width = 150,150
-	local function lightQuest(event)
-		if event.phase == "ended" then
-			display.remove(light)
-			questStart()
-			composer.gotoScene("light_off_game")
-		end
-	end
-	light:addEventListener("touch", lightQuest)
-
 
 	
 
 	--- 에어컨 온도 맞추기 -----
-	-- local quest2 = display.newImage("image/퀘스트박스.png")
+	-- local quest2 = display.newImage("image/배경_인물/퀘스트박스.png")
 	-- quest2.x, quest2.y = 300, 560
 
 	-- local function checkQuest2(quest)
@@ -171,6 +171,23 @@ function scene:create( event )
 	-- end
 
 	-- Runtime:addEventListener("enterFrame", onEnterFrame)
+
+	
+	-- 일반 퀘스트 6번 : 걷기 --
+	local quest6Icon = display.newImage("image/배경_인물/퀘스트박스.png")
+	quest6Icon.x, quest6Icon.y = display.contentWidth*0.568, display.contentHeight*0.325
+    quest6Icon.height, quest6Icon.width = 150, 150
+
+	local function checkQuest6(quest6Icon)
+		if (player.x > quest6Icon.x - 100 and player.x < quest6Icon.x + 100
+			and player.y > quest6Icon.y - 100 and player.y < quest6Icon.y + 100) then
+
+			questStart()
+			composer.showOverlay("questWalk")
+			display.remove(quest6Icon)
+			success.q6 = "T"
+		end
+	end
 	
 	
 
@@ -182,6 +199,9 @@ function scene:create( event )
 		end
 		if success.q2 == "F" then
 			checkQuest2(quest2Icon)
+		end
+		if success.q6 == "F" then
+			checkQuest6(quest6Icon)
 		end
 	end
 
