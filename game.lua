@@ -125,14 +125,18 @@ function scene:create( event )
 	local light = display.newImage("image/배경_인물/퀘스트박스.png")
 	light.x, light.y = display.contentWidth*0.85, display.contentHeight*0.55
 	light.height, light.width = 150,150
-	local function lightQuest(event)
-		if event.phase == "ended" then
-			display.remove(light)
+	local lightquest = display.newImage("image/퀘스트알람/퀘스트_스위치.png")
+	lightquest.x, lightquest.y = display.contentWidth * 0.8, display.contentHeight * 0.45
+	local function checkQuest3( light )
+		if(player.x > light.x - 100 and player.x < light.x + 100
+			and player.y > light.y - 100 and player.y < light.y + 100) then
+
 			questStart()
-			composer.gotoScene("light_off_game")
+			composer.showOverlay("light_off_game")
+			display.remove(light)
+			success.q3 = "T"
 		end
 	end
-	light:addEventListener("touch", lightQuest)
 
 	-- 일반 퀘스트 2번 실행 : 분리수거(드래그) --
 	local quest2Icon = display.newImage("image/배경_인물/퀘스트박스.png")
@@ -199,6 +203,9 @@ function scene:create( event )
 		end
 		if success.q2 == "F" then
 			checkQuest2(quest2Icon)
+		end
+		if success.q3 == "F" then
+			checkQuest3(light)
 		end
 		if success.q6 == "F" then
 			checkQuest6(quest6Icon)
