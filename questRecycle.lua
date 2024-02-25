@@ -53,7 +53,8 @@ function scene:create( event )
         "image/쓰레기4.png",
         "image/쓰레기5.png",
         "image/쓰레기6.png",
-        "image/쓰레기7.png"
+        "image/쓰레기7.png",
+        "image/쓰레기8.png"
     }
     
     local trashGroup = display.newGroup()
@@ -67,7 +68,7 @@ function scene:create( event )
         return x, y
     end
     
-    for i = 1, 7 do
+    for i = 1, 8 do
         local trashImage = display.newImage(imagePaths[i])
         trashImage.width, trashImage.height = trashImage.width * 2, trashImage.height * 2
 
@@ -83,7 +84,7 @@ function scene:create( event )
     end
 
     -- 쓰레기 맞는 쓰레기통에 드래그 하면 플레이어에게 보이지 않도록 설정 --
-    local visibleTrash = 7
+    local visibleTrash = 8
     local function dragTrash( event )
         if( event.phase == "began" ) then
             display.getCurrentStage():setFocus( event.target )
@@ -118,6 +119,9 @@ function scene:create( event )
                 elseif (event.target == trash[7] and isOverlap(trashWaste, trash[7])) then
                     event.target.isVisible = false
                     visibleTrash = visibleTrash - 1
+                elseif (event.target == trash[8] and isOverlap(trashCan, trash[8])) then
+                    event.target.isVisible = false
+                    visibleTrash = visibleTrash - 1
                 end
             else
                 display.getCurrentStage():setFocus( nil )
@@ -126,7 +130,7 @@ function scene:create( event )
         end
     end
 
-    for i = 1, 7 do
+    for i = 1, 8 do
         trash[i]:addEventListener("touch", dragTrash)
     end
 
@@ -139,7 +143,7 @@ function scene:create( event )
             display.remove(trashGlass)
             display.remove(trashPlastic)
             display.remove(trashWaste)
-            for i = 1, 7 do
+            for i = 1, 8 do
                 display.remove(trash[i])
             end
 
@@ -152,52 +156,17 @@ function scene:create( event )
     Runtime:addEventListener("enterFrame", questEnd)
 end
 
---[[function scene:show( event )
-	local sceneGroup = self.view
-	local phase = event.phase
-	
-	if phase == "will" then
-		-- Called when the scene is still off screen and is about to move on screen
-	elseif phase == "did" then
-		-- Called when the scene is now on screen
-		-- 
-		-- INSERT code here to make the scene come alive
-		-- e.g. start timers, begin animation, play audio, etc.
-	end	
-end
-
-function scene:hide( event )
-	local sceneGroup = self.view
-	local phase = event.phase
-	
-	if event.phase == "will" then
-		-- Called when the scene is on screen and is about to move off screen
-		--
-		-- INSERT code here to pause the scene
-		-- e.g. stop timers, stop animation, unload sounds, etc.)
-	elseif phase == "did" then
-		-- Called when the scene is now off screen
-	end
-end]]
-
 function scene:destroy( event )
 	local sceneGroup = self.view
 	
     local event = { name = "questEnd" }
     Runtime:dispatchEvent(event)
-
-	-- Called prior to the removal of scene's "view" (sceneGroup)
-	-- 
-	-- INSERT code here to cleanup the scene
-	-- e.g. remove display objects, remove touch listeners, save state, etc.
 end
 
 ---------------------------------------------------------------------------------
 
 -- Listener setup
 scene:addEventListener( "create", scene )
-scene:addEventListener( "show", scene )
-scene:addEventListener( "hide", scene )
 scene:addEventListener( "destroy", scene )
 
 -----------------------------------------------------------------------------------------
