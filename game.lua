@@ -117,7 +117,7 @@ function scene:create( event )
 
 			composer.showOverlay("quest_alien")
 			display.remove(quest)
-			success.q1 = "T"
+			success.specialQ1 = "T"
 		end
 	end
 
