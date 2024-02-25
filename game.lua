@@ -151,7 +151,7 @@ function scene:create( event )
 	    return alien
 	end
 
-	-- 타이머 카운트 함수
+	-- 타이머 카운트 함수(게임 종료)
 	local function alien_counter( event )
 		alien_timer.text = alien_timer.text - 1
 
@@ -217,24 +217,35 @@ function scene:create( event )
 
 
 	----- 일반 퀘스트 1번 실행 : 전기 스위치 끄기 ------------
-	local light = display.newImage("image/배경_인물/퀘스트박스.png")
-	light.x, light.y = display.contentWidth*0.85, display.contentHeight*0.55
-	light.height, light.width = 150,150
-	local function checkQuest1( light )
-		if(player.x > light.x - 100 and player.x < light.x + 100
-			and player.y > light.y - 100 and player.y < light.y + 100) then
+	local quest1Icon = display.newImage("image/배경_인물/퀘스트박스.png")
+	quest1Icon.x, quest1Icon.y = display.contentWidth*0.85, display.contentHeight*0.55
+    quest1Icon.height, quest1Icon.width = 150, 150
+
+    local quest1Alarm = display.newImage("image/퀘스트알람/퀘스트_스위치.png")
+	quest1Alarm.x, quest1Alarm.y = display.contentWidth * 0.8, display.contentHeight * 0.45
+
+
+	local function checkQuest1(quest1Icon)
+		if (player.x > quest1Icon.x - 100 and player.x < quest1Icon.x + 100
+			and player.y > quest1Icon.y - 100 and player.y < quest1Icon.y + 100) then
 
 			questStart()
 			composer.showOverlay("light_off_game")
-			display.remove(light)
+			display.remove(quest1Icon)
+			display.remove(quest1Alarm)
 			success.q1 = "T"
 		end
 	end
+
 
 	-- 일반 퀘스트 2번 실행 : 분리수거(드래그) --
 	local quest2Icon = display.newImage("image/배경_인물/퀘스트박스.png")
 	quest2Icon.x, quest2Icon.y = display.contentWidth*0.29, display.contentHeight*0.325 -- @@위치 수정 요
     quest2Icon.height, quest2Icon.width = 150, 150
+
+    local quest2Alarm = display.newImage("image/퀘스트알람/퀘스트_쓰레기.png")
+	quest2Alarm.x, quest2Alarm.y = display.contentWidth * 0.25, display.contentHeight * 0.2
+
 
 	local function checkQuest2(quest2Icon)
 		if (player.x > quest2Icon.x - 100 and player.x < quest2Icon.x + 100
@@ -243,6 +254,7 @@ function scene:create( event )
 			questStart()
 			composer.showOverlay("questRecycle")
 			display.remove(quest2Icon)
+			display.remove(quest2Alarm)
 			success.q2 = "T"
 		end
 	end
@@ -254,6 +266,9 @@ function scene:create( event )
 	quest3Icon.x, quest3Icon.y = 300, 860
 	quest3Icon.height, quest3Icon.width = 150, 150
 
+	local quest3Alarm = display.newImage("image/퀘스트알람/퀘스트_에어컨.png")
+	quest3Alarm.x, quest3Alarm.y = display.contentWidth * 0.1, display.contentHeight * 0.68
+
 	local function checkQuest3(quest3Icon)
 		if (player.x > quest3Icon.x - 100 and player.x < quest3Icon.x + 100
 			and player.y > quest3Icon.y - 100 and player.y < quest3Icon.y + 100) then
@@ -261,6 +276,7 @@ function scene:create( event )
 			questStart()
 			composer.showOverlay("questTemp")
 			display.remove(quest3Icon)
+			display.remove(quest3Alarm)
 			success.q3 = "T"
 		end
 	end
@@ -271,6 +287,9 @@ function scene:create( event )
 	quest6Icon.x, quest6Icon.y = display.contentWidth*0.568, display.contentHeight*0.325
     quest6Icon.height, quest6Icon.width = 150, 150
 
+    local quest6Alarm = display.newImage("image/퀘스트알람/퀘스트_걷기.png")
+	quest6Alarm.x, quest6Alarm.y = display.contentWidth * 0.528, display.contentHeight * 0.2
+
 	local function checkQuest6(quest6Icon)
 		if (player.x > quest6Icon.x - 100 and player.x < quest6Icon.x + 100
 			and player.y > quest6Icon.y - 100 and player.y < quest6Icon.y + 100) then
@@ -278,6 +297,7 @@ function scene:create( event )
 			questStart()
 			composer.showOverlay("questWalk")
 			display.remove(quest6Icon)
+			display.remove(quest6Alarm)
 			success.q6 = "T"
 		end
 	end
@@ -291,7 +311,7 @@ function scene:create( event )
 		-- 	checkQuest(quest1)
 		-- end
 		if success.q1 == "F" then
-			checkQuest1(light)
+			checkQuest1(quest1Icon)
 		end
 		if success.q2 == "F" then
 			checkQuest2(quest2Icon)
