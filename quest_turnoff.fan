@@ -4,6 +4,18 @@ local fanImage3 = "선풍기3.png"
 local fanImage4 = "선풍기4.png"
 local fanState = 0  -- 선풍기 클릭 횟수
 
+
+--배경
+local background = display.newRoundedRect(display.contentWidth/2, display.contentHeight/2, display.contentWidth*0.85, display.contentHeight*0.5, 55)
+    background.strokeWidth = 10
+    background:setStrokeColor( 0.6 )
+    background:setFillColor(1, 1, 0.9 )
+
+    local title = display.newText("탭을 눌러 선풍기를 꺼주세요!", display.contentWidth/2, display.contentHeight*0.2)
+    title:setFillColor( 0 )
+    title.size = 70
+
+
 -- 빈 화면을 출력하는 함수
 local function clearScreen()
     for i = 1, 25 do
