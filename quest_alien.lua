@@ -20,7 +20,7 @@ function scene:create( event )
  	title:setFillColor( 0.6 )
  	title.size = 70
 
- 	local player = display.newImage("image/캐릭터_총.png")
+ 	local player = display.newImage("image/자료2/캐릭터_총.png")
  	player.height = 300
 	player.width = 300
 	player.x, player.y = 1700, 600
@@ -37,7 +37,7 @@ function scene:create( event )
 
 	-- 외계인 생성 및 터치 이벤트 처리
 	local function createAlien()
-	    local alien = display.newImage("image/외계인.png")
+	    local alien = display.newImage("image/배경_인물/외계인.png")
 	    alien.height = 200
 	    alien.width = 200
 	    alien.x, alien.y = math.random(display.contentWidth), math.random(display.contentHeight)
@@ -68,7 +68,7 @@ function scene:create( event )
 	        display.remove(accept)
 
 	        display.remove(player)
-	        player = display.newImage("image/캐릭터_총.png")
+	        player = display.newImage("image/자료2/캐릭터_총.png")
 	        player.x, player.y = display.contentWidth * 0.16, display.contentHeight * 0.3
 
 	        createAliens(4)
@@ -93,7 +93,7 @@ function scene:create( event )
  	-- sceneGroup:insert(player)
 end
 
-function scene:show( event )
+--[[function scene:show( event )
 	local sceneGroup = self.view
 	local phase = event.phase
 	
@@ -130,15 +130,17 @@ function scene:destroy( event )
 	-- 
 	-- INSERT code here to cleanup the scene
 	-- e.g. remove display objects, remove touch listeners, save state, etc.
-end
+end]]
 
 ---------------------------------------------------------------------------------
 
 -- Listener setup
 scene:addEventListener( "create", scene )
+--[[
 scene:addEventListener( "show", scene )
 scene:addEventListener( "hide", scene )
 scene:addEventListener( "destroy", scene )
+]]
 
 -----------------------------------------------------------------------------------------
 
