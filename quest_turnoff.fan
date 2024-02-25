@@ -6,7 +6,7 @@ local fanState = 0  -- 선풍기 클릭 횟수
 
 
 --배경
-local background = display.newRoundedRect(display.contentWidth/2, display.contentHeight/2, display.contentWidth*0.85, display.contentHeight*0.5, 55)
+local background = display.newRoundedRect(display.contentWidth/2, display.contentHeight/2, display.contentWidth*0.85, display.contentHeight*0.75, 55)
     background.strokeWidth = 10
     background:setStrokeColor( 0.6 )
     background:setFillColor(1, 1, 0.9 )
