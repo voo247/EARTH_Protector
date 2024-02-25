@@ -91,6 +91,19 @@ function scene:create( event )
 	questStart(), questEnd() 함수 직접 호출해주시면 사용가능합니다.
 	]]
 
+	-- 퀘스트 성공 여부 --
+	local success = {
+		q1 = "F",
+		q2 = "F",
+		q3 = "F",
+		q4 = "F",
+		q5 = "F",
+		q6 = "F",
+		q7 = "F",
+		specialQ1 = "F",
+		specialQ2 = "F"
+	}
+
 	
 	--- 외계인 퀘스트 -------
 	local quest1 = display.newImage("image/총.png")
@@ -103,29 +116,26 @@ function scene:create( event )
 			and player.y > quest.y - 100 and player.y < quest.y + 100) then
 
 			composer.showOverlay("quest_alien")
-			-- display.remove(quest)
+			display.remove(quest)
+			success.q1 = "T"
 		end
 	end
-
-	local function onEnterFrame(event)
-    	checkQuest(quest1)
-	end
-
-	Runtime:addEventListener("enterFrame", onEnterFrame)
 
 	-- 일반 퀘스트 2번 실행 : 분리수거(드래그) --
 	local quest2Icon = display.newImage("image/퀘스트박스.png")
 	quest2Icon.x, quest2Icon.y = display.contentWidth*0.29, display.contentHeight*0.325 -- @@위치 수정 요
     quest2Icon.height, quest2Icon.width = 150, 150
 
-	local function touchQuest2Icon(event)
-		if event.phase == "ended" then
-			display.remove(quest2Icon)
+	local function checkQuest2(quest2Icon)
+		if (player.x > quest2Icon.x - 100 and player.x < quest2Icon.x + 100
+			and player.y > quest2Icon.y - 100 and player.y < quest2Icon.y + 100) then
+
 			questStart()
-			composer.gotoScene("questRecycle", {effect = "slideRight", time = 1000})
+			composer.showOverlay("questRecycle")
+			display.remove(quest2Icon)
+			success.q2 = "T"
 		end
 	end
-	quest2Icon:addEventListener("touch", touchQuest2Icon)
 
 	-----일반 퀘스트(전기 스위치 끄기 퀘스트)------------
 	local light = display.newImage("image/퀘스트박스.png")
@@ -161,6 +171,21 @@ function scene:create( event )
 	-- end
 
 	-- Runtime:addEventListener("enterFrame", onEnterFrame)
+	
+	
+
+	-- 퀘스트 반경 확인 --
+
+	local function onEnterFrame(event)
+    		if success.specialQ1 == "F" then
+			checkQuest(quest1)
+		end
+		if success.q2 == "F" then
+			checkQuest2(quest2Icon)
+		end
+	end
+
+	Runtime:addEventListener("enterFrame", onEnterFrame)
 	
 
 
