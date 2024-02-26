@@ -27,20 +27,17 @@ function scene:create( event )
  	
  	local switchOff
 
- 	 	------------퀘스트 완료 후에 종료----------
+ 	 	----------퀘스트 완료 후에 종료----------
     local function questEnd(event)
-    	if(switchOff) then
-    		display.remove(background)
-        	display.remove(title)
-        	display.remove(switchOn)
-        	display.remove(switchOff)
+    	display.remove(background)
+        display.remove(title)
+        display.remove(switchOn)
+        display.remove(switchOff)
 
-        	scene:destroy()
-        	composer.removeScene("light_off_game")
-        	composer.gotoScene("game")
-    	end
+        scene:destroy()
+       	composer.removeScene("light_off_game")
+       	composer.gotoScene("game")
     end
-    Runtime:addEventListener("enterFrame", questEnd)
  
  	function tapEvent1( event )
  		local timeAttack = timer.performWithDelay(1000, questEnd)
