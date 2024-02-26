@@ -188,7 +188,7 @@ function scene:create( event )
 
 	--- 총 이미지 (수락) -------
    local accept = display.newImage("image/자료2/총.png")
-	accept.x, accept.y = display.contentWidth*0.85, display.contentHeight*0.8
+	accept.x, accept.y = display.contentWidth*0.71, display.contentHeight*0.85
     accept.height = 170
     accept.width = 170
 
