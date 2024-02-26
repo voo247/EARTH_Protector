@@ -24,34 +24,98 @@ function scene:create( event )
 	player.x, player.y = display.contentWidth*0.16, display.contentHeight*0.3
 	player.name = "player"
 
-	--- 캐릭터 움직이기 ---------
+	-- 캐릭터 움직이기 --
+	local playerX, playerY = player.x, player.y
+	local movingDirection = ""
+
+	local function movePlayer()
+		if movingDirection == "right" then
+			playerX = playerX + 15
+		elseif movingDirection == "left" then
+			playerX = playerX - 15
+		elseif movingDirection == "up" then
+			playerY = playerY - 15
+		elseif movingDirection == "down" then
+			playerY = playerY + 15
+		end
+
+		player.x, player.y = playerX, playerY
+	end
+
+	local moveTimer, changeTimer
+	local function moveLoop()
+		movePlayer()
+		moveTimer = timer.performWithDelay(20, moveLoop)
+	end
+
+	local walkingType = 1
+	local function changeImage()
+		playerX, playerY = player.x, player.y
+		if movingDirection == "right" then
+			display.remove(player)
+			if(walkingType ~= 1) then
+				player = display.newImage("image/배경_인물/캐릭터_옆면3.png")
+				walkingType = 1
+			else
+				player = display.newImage("image/배경_인물/캐릭터_옆면4.png")
+				walkingType = 2
+			end
+		elseif movingDirection == "left" then
+			display.remove(player)
+			if(walkingType ~= 1) then
+				player = display.newImage("image/배경_인물/캐릭터_옆면1.png")
+				walkingType = 1
+			else
+	        	player = display.newImage("image/배경_인물/캐릭터_옆면2.png")
+				walkingType = 2
+			end
+		elseif movingDirection == "up" then
+			display.remove(player)
+			if(walkingType ~= 1) then
+				player = display.newImage("image/배경_인물/캐릭터_뒷면1.png")
+				walkingType = 1
+			else
+				player = display.newImage("image/배경_인물/캐릭터_뒷면2.png")
+				walkingType = 2
+			end
+		elseif movingDirection == "down" then
+			display.remove(player)
+			if(walkingType ~= 1) then
+				player = display.newImage("image/배경_인물/캐릭터_정면.png")
+				walkingType = 1
+			else
+				player = display.newImage("image/배경_인물/캐릭터_정면2.png")
+				walkingType = 2
+			end
+		end
+		player.x, player.y = playerX, playerY
+		changeTimer = timer.performWithDelay(300, changeImage)
+	end
 
 	local function onKeyEvent(event)
-		local playerX, playerY = player.x, player.y
-
-	    if event.phase == "down" then
-	        if event.keyName == "right" then
-	        	playerX, playerY = player.x, player.y
-	        	display.remove(player)
-	        	player = display.newImage("image/배경_인물/캐릭터_옆면3.png")
-	            player.x, player.y = playerX + 100, playerY
-	        elseif event.keyName == "left" then
-	        	playerX, playerY = player.x, player.y
-	        	display.remove(player)
-	        	player = display.newImage("image/배경_인물/캐릭터_옆면2.png")
-	            player.x, player.y = playerX - 100, playerY
-	        elseif event.keyName == "up" then
-	        	playerX, playerY = player.x, player.y
-	        	display.remove(player)
-	        	player = display.newImage("image/배경_인물/캐릭터_뒷면1.png")
-	            player.x, player.y = playerX, playerY - 100
-	        elseif event.keyName == "down" then
-	            playerX, playerY = player.x, player.y
-	        	display.remove(player)
-	        	player = display.newImage("image/배경_인물/캐릭터_정면.png")
-	            player.x, player.y = playerX, playerY + 100
-	        end
-	    end
+		if event.phase == "down" then
+			if event.keyName == "right" then
+				movingDirection = "right"
+			elseif event.keyName == "left" then
+				movingDirection = "left"
+			elseif event.keyName == "up" then
+				movingDirection = "up"
+			elseif event.keyName == "down" then
+				movingDirection = "down"
+			end
+			moveLoop()
+			changeImage()
+		elseif event.phase == "up" then
+			movingDirection = ""
+			if(moveTimer) then
+				timer.cancel(moveTimer)
+				moveTimer = nil
+			end
+			if(changeTimer) then
+				timer.cancel(changeTimer)
+				changeTimer = nil
+			end
+		end
 	end
 
 	Runtime:addEventListener("key", onKeyEvent)
@@ -69,6 +133,15 @@ function scene:create( event )
 
 	-- 퀘스트 진행 중 기존 게임화면에 비의도적 변동사항이 없도록 키보드 입력 중단/재개하는 코드 --
 	local function questStart()
+		movingDirection = ""
+			if(moveTimer) then
+				timer.cancel(moveTimer)
+				moveTimer = nil
+			end
+			if(changeTimer) then
+				timer.cancel(changeTimer)
+				changeTimer = nil
+			end
 		Runtime:removeEventListener("key", onKeyEvent)
 	end
 	local function questEnd(event)
@@ -299,7 +372,7 @@ function scene:create( event )
 		Runtime:dispatchEvent(playerPositionEvent)
 	end
 
-	Runtime:addEventListener("key", sendPlayerPosition)
+	Runtime:addEventListener("enterFrame", sendPlayerPosition)
 
 	local responeX, respawnY
 	local function checkQuest6(quest6Icon)
@@ -317,7 +390,7 @@ function scene:create( event )
 
 
 
-	----- 일반 퀘스트 7번 실행 : 나무심기 ------------
+----- 일반 퀘스트 7번 실행 : 나무심기 ------------
 	local quest7Icon = display.newImage("image/배경_인물/퀘스트박스.png")
 	quest7Icon.x, quest7Icon.y = 900, 860
     quest7Icon.height, quest7Icon.width = 150, 150
@@ -338,13 +411,11 @@ function scene:create( event )
 		end
 	end
 
-
-	
-
 	local function resetPosition(event)
 	        if event.name == "restart" then
 	            player.x = respawnX
 				player.y = respawnY
+				playerX, playerY = player.x, player.y
 	        end
 	end
 	    
