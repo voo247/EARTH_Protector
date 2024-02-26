@@ -11,7 +11,7 @@ function scene:create(event)
     physics.setDrawMode("hybrid")
 
     -- 배경 추가
-    local background = display.newImageRect("image/배경.png", display.contentWidth, display.contentHeight)
+    local background = display.newImageRect("image/배경_인물/배경.png", display.contentWidth, display.contentHeight)
     background.x, background.y = display.contentWidth / 2, display.contentHeight / 2
 
     -- 점수 추가
@@ -24,13 +24,13 @@ function scene:create(event)
     --player.name = "player"
 
     -- 바구니 이미지
-    local basket = display.newImage("image/씨앗.png")
+    local basket = display.newImage("image/나무/씨앗.png")
     basket.x, basket.y = display.contentWidth * 0.2, display.contentHeight * 0.8
     basket.height = 300
     basket.width = 300
 
     -- 물뿌리개 이미지
-    local water = display.newImage("image/물뿌리개.png")
+    local water = display.newImage("image/나무/물뿌리개.png")
     water.x, water.y = display.contentWidth * 0.75, display.contentHeight * 0.79
     water.height = 350
     water.width = 500
@@ -46,7 +46,7 @@ local treeSpacingY = 200 -- 나무 이미지 간의 세로 간격
 
 for row = 1, numRows do
     for col = 1, numCols do
-        local tree = display.newImage("image/1.png")
+        local tree = display.newImage("image/나무/1.png")
         tree.x = (display.contentWidth - (numCols - 1) * treeSpacingX) / 2 + (col - 1) * treeSpacingX
         tree.y = (display.contentHeight - (numRows - 1) * treeSpacingY) / 2 + (row - 1) * treeSpacingY
         tree.width = treeWidth
@@ -62,7 +62,7 @@ end
             basket:removeSelf()  -- 이전에 생성된 씨앗 이미지 제거
         end
         -- 새로운 씨앗 이미지 생성
-        basket = display.newImage("image/씨앗_사용후png.png")
+        basket = display.newImage("image/나무/씨앗_사용후png.png")
         basket.x, basket.y = display.contentWidth * 0.2, display.contentHeight * 0.8
         basket.height = 300
         basket.width = 300
@@ -74,11 +74,11 @@ basket:addEventListener("touch", onBasketClick)
 
     ----------이미지1이 이미지2로--------------
     local waterClickCount = 0
-local tree1Image = "image/1.png"
-local tree2Image = "image/2.png"
-local tree3Image = "image/3.png"
-local tree4Image = "image/4.png"
-local tree5Image = "image/5.png"
+local tree1Image = "image/나무/1.png"
+local tree2Image = "image/나무/2.png"
+local tree3Image = "image/나무/3.png"
+local tree4Image = "image/나무/4.png"
+local tree5Image = "image/나무/5.png"
 
 -- 나무 이미지 그룹
 local treeGroup = display.newGroup()
@@ -129,11 +129,11 @@ drawTrees()
 
     ------이미지2가 이미지3로----------------------------  
     local waterClickCount = 0
-local tree1Image = "image/1.png"
-local tree2Image = "image/2.png"
-local tree3Image = "image/3.png"
-local tree4Image = "image/4.png"
-local tree5Image = "image/5.png"
+local tree1Image = "image/나무/1.png"
+local tree2Image = "image/나무/2.png"
+local tree3Image = "image/나무/3.png"
+local tree4Image = "image/나무/4.png"
+local tree5Image = "image/나무/5.png"
 
 -- 나무 이미지 그룹
 local treeGroup = display.newGroup()
@@ -182,11 +182,11 @@ drawTrees()
 
   ------이미지3가 이미지4로----------------------------  
     local waterClickCount = 0
-local tree1Image = "image/1.png"
-local tree2Image = "image/2.png"
-local tree3Image = "image/3.png"
-local tree4Image = "image/4.png"
-local tree5Image = "image/5.png"
+local tree1Image = "image/나무/1.png"
+local tree2Image = "image/나무/2.png"
+local tree3Image = "image/나무/3.png"
+local tree4Image = "image/나무/4.png"
+local tree5Image = "image/나무/5.png"
 
 -- 나무 이미지 그룹
 local treeGroup = display.newGroup()
@@ -234,11 +234,11 @@ drawTrees()
 
   ------이미지4가 이미지5로----------------------------  
     local waterClickCount = 0
-local tree1Image = "image/1.png"
-local tree2Image = "image/2.png"
-local tree3Image = "image/3.png"
-local tree4Image = "image/4.png"
-local tree5Image = "image/5.png"
+local tree1Image = "image/나무/1.png"
+local tree2Image = "image/나무/2.png"
+local tree3Image = "image/나무/3.png"
+local tree4Image = "image/나무/4.png"
+local tree5Image = "image/나무/5.png"
 
 -- 나무 이미지 그룹
 local treeGroup = display.newGroup()
@@ -286,11 +286,11 @@ drawTrees()
 
 ------이미지4가 이미지5로----------------------------  
     local waterClickCount = 0
-local tree1Image = "image/1.png"
-local tree2Image = "image/2.png"
-local tree3Image = "image/3.png"
-local tree4Image = "image/4.png"
-local tree5Image = "image/5.png"
+local tree1Image = "image/나무/1.png"
+local tree2Image = "image/나무/2.png"
+local tree3Image = "image/나무/3.png"
+local tree4Image = "image/나무/4.png"
+local tree5Image = "image/나무/5.png"
 
 -- 나무 이미지 그룹
 local treeGroup = display.newGroup()
@@ -343,11 +343,11 @@ drawTrees()
 local tree_score = 0 -- 나무 점수
 
 local waterClickCount = 0
-local tree1Image = "image/1.png"
-local tree2Image = "image/2.png"
-local tree3Image = "image/3.png"
-local tree4Image = "image/4.png"
-local tree5Image = "image/5.png"
+local tree1Image = "image/나무/1.png"
+local tree2Image = "image/나무/2.png"
+local tree3Image = "image/나무/3.png"
+local tree4Image = "image/나무/4.png"
+local tree5Image = "image/나무/5.png"
 
 -- 나무 이미지 그룹
 local treeGroup = display.newGroup()
@@ -390,17 +390,18 @@ drawTrees()
 
 
 
-
 --end
 ---------------------------------------------------------------------------------
 
-    -- 일반퀘스트 7번 종료 --
+
+
+    -- 일퀘7번 종료 --
     local function questEnd(event)
         if (waterClickCount == 24) then
             display.remove(background)
             display.remove(title)
-            display.remove(image/4.png)
-            display.remove(image/5.png)
+            display.remove(image/나무/4.png)
+            display.remove(image/나무/5.png)
             display.remove(water)
             display.remove(basket)
             end
@@ -420,7 +421,11 @@ function scene:destroy( event )
     local event = { name = "questEnd" }
     Runtime:dispatchEvent(event)
 end
---------------------------------------------------------------------------------------
+
+
+---------------------------------------------------------------------------------
+
+
 -- Listener setup
 scene:addEventListener( "create", scene )
 scene:addEventListener( "show", scene )
