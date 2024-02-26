@@ -72,6 +72,8 @@ local function onWaterClick(event)
                 local tree2 = display.newImage("image/나무/2.png")  -- 새로운 나무 이미지 생성
                 tree2.x = display.contentCenterX
                 tree2.y = display.contentCenterY
+
+                transition.to(tree2, {time = 2000, alpha = 0})
             -- 클릭 횟수 초기화
             waterClickCount = 0
         end
@@ -100,6 +102,8 @@ local function onWaterClick(event)
                 local tree3 = display.newImage("image/나무/3.png")  -- 새로운 나무 이미지 생성
                 tree3.x = display.contentCenterX
                 tree3.y = display.contentCenterY
+
+                transition.to(tree3, {time = 2000, alpha = 0})
             -- 클릭 횟수 초기화
             waterClickCount = 0
         end
@@ -127,6 +131,8 @@ local function onWaterClick(event)
                 local tree4 = display.newImage("image/나무/4.png")  -- 새로운 나무 이미지 생성
                 tree4.x = display.contentCenterX
                 tree4.y = display.contentCenterY
+
+                transition.to(tree4, {time = 2000, alpha = 0})
             -- 클릭 횟수 초기화
             waterClickCount = 0
         end
@@ -152,6 +158,13 @@ local function onWaterClick(event)
                 local tree5 = display.newImage("image/나무/5.png")  -- 새로운 나무 이미지 생성
                 tree5.x = display.contentCenterX
                 tree5.y = display.contentCenterY
+
+                --서서히 사라지게
+                transition.to(tree5, {time = 2000, alpha = 0})
+                
+
+
+
             -- 클릭 횟수 초기화
             waterClickCount = 0
         end
@@ -176,7 +189,8 @@ local function onWaterClick(event)
         waterClickCount = waterClickCount + 1
         if waterClickCount == 8 then
             score.text = score.text + 15
-            
+
+
             -- 클릭 횟수 초기화
             waterClickCount = 0
         end
@@ -199,9 +213,9 @@ water:addEventListener("touch", onWaterClick)
         if tonumber(score.text) == 15 then
             display.remove(background)
             display.remove(title)
-            display.remove(tree5)
             display.remove(water)
             display.remove(basket)
+            display.remove(tree)
             --end
 
             scene:destroy()
@@ -233,3 +247,4 @@ scene:addEventListener( "destroy", scene )
 -----------------------------------------------------------------------------------------
 
 return scene
+
