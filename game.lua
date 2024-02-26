@@ -552,7 +552,7 @@ end
 
 -- 배경 음악 파일 경로----------------------------------------------
 -- 배경 음악 파일 경로
-local bgmFile = "music/해커톤_Speak The Truth - Go By Ocean _ Ryan McCaffrey{배경4}.mp3"
+local bgmFile = "source/해커톤_Speak The Truth - Go By Ocean _ Ryan McCaffrey{배경4}.mp3"
 
 -- 배경 음악을 재생하는 함수
 local function playBackgroundMusic()
