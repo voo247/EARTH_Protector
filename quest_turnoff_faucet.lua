@@ -8,25 +8,6 @@ local faucetImages = {
 local currentImageIndex = 1
 local tapCount = 0
 
---배경
-local background = display.newRoundedRect(display.contentWidth/2, display.contentHeight/2, display.contentWidth*0.85, display.contentHeight*0.75, 55)
-    background.strokeWidth = 10
-    background:setStrokeColor( 0.6 )
-    background:setFillColor(1, 1, 0.9 )
-
-    local title = display.newText("핸들을 클릭해 물을 멈춰주세요!", display.contentWidth/2, display.contentHeight*0.2)
-    title:setFillColor( 0 )
-    title.size = 70
-
--- 이미지 로드 함수
-local function loadImages()
-    -- 이미지 로드 코드
-    print("이미지를 로드했습니다.")
-end
-
--- 이미지 로드
-loadImages()
-
 -- 이미지를 표시하는 함수
 local function drawImage()
     print("현재 이미지: " .. faucetImages[currentImageIndex])
@@ -52,10 +33,11 @@ local function processInput()
     drawImage()  -- 이미지 표시
 end
 
--- 사용자 입력 처리
-while true do
-    print("핸들을 클릭해주세요.")
-    io.read()  -- 사용자 입력 대기
+-- 핸들 클릭 이벤트 처리
+local function handleTapEvent(event)
     processInput()  -- 입력 처리
 end
+
+-- 핸들에 대한 탭 이벤트 리스너 등록
+Runtime:addEventListener("tap", handleTapEvent)
 
