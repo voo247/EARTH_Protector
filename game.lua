@@ -29,13 +29,13 @@ function scene:create( event )
 	local movingDirection = ""
 
 	local function movePlayer()
-		if movingDirection == "right" then
+		if movingDirection == "right" and player.x < display.contentWidth*0.91 - player.width / 4 then
 			playerX = playerX + 15
-		elseif movingDirection == "left" then
+		elseif movingDirection == "left" and display.contentWidth*0.09 + player.width / 4 < player.x then
 			playerX = playerX - 15
-		elseif movingDirection == "up" then
+		elseif movingDirection == "up" and display.contentHeight*0.3 - player.height / 2 < player.y then
 			playerY = playerY - 15
-		elseif movingDirection == "down" then
+		elseif movingDirection == "down" and player.y < display.contentHeight*1 - player.height / 2 then
 			playerY = playerY + 15
 		end
 
@@ -123,12 +123,54 @@ function scene:create( event )
 	--- 점수 추가 -----------
 	score = display.newText(0, display.contentWidth*0.625, display.contentHeight*0.095)
  	score.size = 70
- 	score:setFillColor(255, 255, 255)
+ 	score:setFillColor(1, 1, 1)
 
 	--- 타이머 추가 -----------
 	local time= display.newText(75, display.contentWidth*0.365, display.contentHeight*0.095)
- 	time.size = 100
- 	time:setFillColor(0)
+ 	time.size = 70
+ 	time:setFillColor(1, 1, 1)
+	
+	-- 랜덤 좌표 지정 --
+	math.randomseed(os.time())
+	local function randomXYPosition(existingPositions)
+		local function checkXY(x, y)
+			for i, pos in ipairs(existingPositions) do
+				local dx = x - pos.x
+				local dy = y - pos.y
+				local distanceSquared = dx * dx + dy * dy
+				if distanceSquared < 200 * 200 then
+					return true
+				end
+			end
+			if (display.contentWidth*0.568 - 200 <= x and x <= display.contentWidth*0.568 + 200 and
+            display.contentHeight*0.325 - 200 <= y and y <= display.contentHeight*0.325 + 200) then
+				return true
+			elseif (display.contentWidth*0.16 - 200 <= x and x <= display.contentWidth*0.16 + 200 and
+            display.contentHeight*0.3 - 200 <= y and y <= display.contentHeight*0.3 + 200) then
+				return true
+			elseif (display.contentWidth*0.71 - 200 <= x and x <= display.contentWidth*0.71 + 200 and
+            display.contentHeight*0.85 - 200 <= y and y <= display.contentHeight*0.85 + 200) then
+				return true
+			end
+			return false
+		end
+	
+		local x = math.random(display.contentWidth*0.14, display.contentWidth*0.86)
+		local y = math.random(display.contentHeight*0.35, display.contentHeight*0.95)
+		repeat
+			x = math.random(display.contentWidth*0.14, display.contentWidth*0.86)
+			y = math.random(display.contentHeight*0.35, display.contentHeight*0.95)
+		until not checkXY(x, y)
+	
+		return { x = x, y = y }
+	end
+
+	local coordinates = {}
+
+	for i = 1, 7 do
+		local position = randomXYPosition(coordinates)
+		table.insert(coordinates, position)
+	end
 
 
 	-- 퀘스트 진행 중 기존 게임화면에 비의도적 변동사항이 없도록 키보드 입력 중단/재개하는 코드 --
@@ -291,11 +333,11 @@ function scene:create( event )
 
 	----- 일반 퀘스트 1번 실행 : 전기 스위치 끄기 ------------
 	local quest1Icon = display.newImage("image/배경_인물/퀘스트박스.png")
-	quest1Icon.x, quest1Icon.y = display.contentWidth*0.85, display.contentHeight*0.55
+	quest1Icon.x, quest1Icon.y = coordinates[1].x, coordinates[1].y
     quest1Icon.height, quest1Icon.width = 150, 150
 
     local quest1Alarm = display.newImage("image/퀘스트알람/퀘스트_스위치.png")
-	quest1Alarm.x, quest1Alarm.y = display.contentWidth * 0.8, display.contentHeight * 0.45
+	quest1Alarm.x, quest1Alarm.y = quest1Icon.x - display.contentWidth * 0.05, quest1Icon.y - display.contentHeight * 0.1
 
 
 	local function checkQuest1(quest1Icon)
@@ -313,11 +355,11 @@ function scene:create( event )
 
 	-- 일반 퀘스트 2번 실행 : 분리수거(드래그) --
 	local quest2Icon = display.newImage("image/배경_인물/퀘스트박스.png")
-	quest2Icon.x, quest2Icon.y = display.contentWidth*0.29, display.contentHeight*0.325 -- @@위치 수정 요
+	quest2Icon.x, quest2Icon.y = coordinates[2].x, coordinates[2].y
     quest2Icon.height, quest2Icon.width = 150, 150
 
     local quest2Alarm = display.newImage("image/퀘스트알람/퀘스트_쓰레기.png")
-	quest2Alarm.x, quest2Alarm.y = display.contentWidth * 0.25, display.contentHeight * 0.2
+	quest2Alarm.x, quest2Alarm.y = quest2Icon.x - display.contentWidth * 0.04, quest2Icon.y - display.contentHeight * 0.125
 
 
 	local function checkQuest2(quest2Icon)
@@ -336,11 +378,11 @@ function scene:create( event )
 
 	-- 일반 퀘스트 3번 실행 : 에어컨 온도 맞추기 -----
 	local quest3Icon = display.newImage("image/배경_인물/퀘스트박스.png")
-	quest3Icon.x, quest3Icon.y = 300, 860
+	quest3Icon.x, quest3Icon.y = coordinates[3].x, coordinates[3].y
 	quest3Icon.height, quest3Icon.width = 150, 150
 
 	local quest3Alarm = display.newImage("image/퀘스트알람/퀘스트_에어컨.png")
-	quest3Alarm.x, quest3Alarm.y = display.contentWidth * 0.1, display.contentHeight * 0.68
+	quest3Alarm.x, quest3Alarm.y = quest3Icon.x - display.contentWidth * 0.05, quest3Icon.y - display.contentHeight * 0.1
 
 	local function checkQuest3(quest3Icon)
 		if (player.x > quest3Icon.x - 100 and player.x < quest3Icon.x + 100
@@ -362,7 +404,7 @@ function scene:create( event )
 
 	local quest6Alarm = display.newImage("image/퀘스트알람/퀘스트_걷기.png")
 	quest6Alarm.x, quest6Alarm.y = display.contentWidth * 0.528, display.contentHeight * 0.2
-
+	
 	local function sendPlayerPosition()
 		local playerPositionEvent = {
 			name = "playerPositionUpdate",
@@ -392,11 +434,11 @@ function scene:create( event )
 
 ----- 일반 퀘스트 7번 실행 : 나무심기 ------------
 	local quest7Icon = display.newImage("image/배경_인물/퀘스트박스.png")
-	quest7Icon.x, quest7Icon.y = 900, 860
+	quest7Icon.x, quest7Icon.y = coordinates[7].x, coordinates[7].y
     quest7Icon.height, quest7Icon.width = 150, 150
 
     local quest7Alarm = display.newImage("image/퀘스트알람/퀘스트_나무.png")
-	quest7Alarm.x, quest7Alarm.y = display.contentWidth * 0.44, display.contentHeight * 0.68
+	quest7Alarm.x, quest7Alarm.y = quest7Icon.x - display.contentWidth * 0.04, quest7Icon.y - display.contentHeight * 0.125
 
 
 	local function checkQuest7(quest7Icon)
