@@ -36,13 +36,6 @@ function scene:create(event)
     water.height = 350
     water.width = 500
 
-    -- 나무 이미지를 중앙에 배치
-    local tree = display.newImage("image/나무/t1.png")
-    tree.x = display.contentCenterX
-    tree.y = display.contentCenterY
-
-
-
     ----------바구니 클릭하면 씨앗없는 바구니로-----
     local inBasket = "Full"
     local function onBasketClick(event)
@@ -56,6 +49,11 @@ function scene:create(event)
         basket.height = 300
         basket.width = 300
         inBasket = nil
+        -- 나무 이미지를 중앙에 배치
+    local tree = display.newImage("image/나무/t1.png")
+    tree.x = display.contentCenterX
+    tree.y = display.contentCenterY
+    
     end
 end
 
