@@ -25,30 +25,52 @@ function scene:create( event )
 
 	--- 캐릭터 움직이기 ---------
 
+	walkCount = 0;
 	local function onKeyEvent(event)
 		local playerX, playerY = player.x, player.y
 
+		
 	    if event.phase == "down" then
 	        if event.keyName == "right" then
 	        	playerX, playerY = player.x, player.y
 	        	display.remove(player)
-	        	player = display.newImage("image/캐릭터_옆면3.png")
+				if walkCount%2 == 0 then
+	        	player = display.newImage("image/배경_인물/캐릭터_옆면3.png")
+				else
+				player = display.newImage("image/배경_인물/캐릭터_옆면4.png")
+				end
 	            player.x, player.y = playerX + 100, playerY
+				walkCount = walkCount + 1
 	        elseif event.keyName == "left" then
 	        	playerX, playerY = player.x, player.y
 	        	display.remove(player)
-	        	player = display.newImage("image/캐릭터_옆면2.png")
+				if walkCount%2 == 0 then
+	        	player = display.newImage("image/배경_인물/캐릭터_옆면2.png")
+				else
+				player = display.newImage("image/배경_인물/캐릭터_옆면1.png")
+				end
 	            player.x, player.y = playerX - 100, playerY
+				walkCount = walkCount + 1
 	        elseif event.keyName == "up" then
 	        	playerX, playerY = player.x, player.y
 	        	display.remove(player)
-	        	player = display.newImage("image/캐릭터_뒷면1.png")
+	        	if walkCount%2 == 0 then
+					player = display.newImage("image/배경_인물/캐릭터_뒷면2.png")
+					else
+					player = display.newImage("image/배경_인물/캐릭터_뒷면1.png")
+					end
 	            player.x, player.y = playerX, playerY - 100
+				walkCount = walkCount + 1
 	        elseif event.keyName == "down" then
 	            playerX, playerY = player.x, player.y
 	        	display.remove(player)
-	        	player = display.newImage("image/캐릭터_정면.png")
+	        	if walkCount%2 == 0 then
+					player = display.newImage("image/배경_인물/캐릭터_정면.png")
+					else
+					player = display.newImage("image/배경_인물/캐릭터_정면2.png")
+					end
 	            player.x, player.y = playerX, playerY + 100
+				walkCount = walkCount + 1				
 	        end
 	    end
 	end
