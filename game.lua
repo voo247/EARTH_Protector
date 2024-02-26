@@ -285,22 +285,39 @@ function scene:create( event )
 	-- 일반 퀘스트 6번 : 걷기 --
 	local quest6Icon = display.newImage("image/배경_인물/퀘스트박스.png")
 	quest6Icon.x, quest6Icon.y = display.contentWidth*0.568, display.contentHeight*0.325
-    quest6Icon.height, quest6Icon.width = 150, 150
+	quest6Icon.height, quest6Icon.width = 150, 150
 
-    local quest6Alarm = display.newImage("image/퀘스트알람/퀘스트_걷기.png")
-	quest6Alarm.x, quest6Alarm.y = display.contentWidth * 0.528, display.contentHeight * 0.2
+	local function sendPlayerPosition()
+		local playerPositionEvent = {
+			name = "playerPositionUpdate",
+			x = player.x,
+			y = player.y
+		}
+		Runtime:dispatchEvent(playerPositionEvent)
+	end
 
+	Runtime:addEventListener("key", sendPlayerPosition)
+
+	local responeX, respawnY
 	local function checkQuest6(quest6Icon)
-		if (player.x > quest6Icon.x - 100 and player.x < quest6Icon.x + 100
-			and player.y > quest6Icon.y - 100 and player.y < quest6Icon.y + 100) then
-
-			questStart()
+		if (player.x > quest6Icon.x - 40 and player.x < quest6Icon.x + 40
+			and player.y > quest6Icon.y - 40 and player.y < quest6Icon.y + 40) then
+			--questStart()
 			composer.showOverlay("questWalk")
+			respawnX, respawnY = quest6Icon.x, quest6Icon.y - 80
 			display.remove(quest6Icon)
-			display.remove(quest6Alarm)
 			success.q6 = "T"
 		end
 	end
+
+	local function resetPosition(event)
+	        if event.name == "restart" then
+	            player.x = respawnX
+				player.y = respawnY
+	        end
+	end
+	    
+	Runtime:addEventListener("restart", resetPosition)
 	
 	
 
