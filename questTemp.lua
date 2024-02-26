@@ -17,7 +17,7 @@ function scene:create( event )
 	background:setStrokeColor( 0.6 )
  	background:setFillColor(1, 1, 0.9 )
 
- 	local title = display.newText("에어컨 온도 조절", display.contentWidth/2, display.contentHeight*0.2)
+ 	local title = display.newText("에어컨 온도 조절", display.contentWidth/2, display.contentHeight*0.2, "source/나눔손글씨 신혼부부.ttf")
  	title:setFillColor( 0.6 )
  	title.size = 70
 
@@ -28,7 +28,7 @@ function scene:create( event )
     n_air.height, n_air.width = n_air.height * 1.6, n_air.width * 1.6
 
  	--- 초기 숫자 ------------------
- 	local numberText = display.newText("", display.contentWidth*0.45, display.contentHeight*0.735)
+ 	local numberText = display.newText("", display.contentWidth*0.45, display.contentHeight*0.735, "source/나눔손글씨 신혼부부.ttf")
  	numberText:setFillColor( 0.3 )
  	numberText.size = 50
 
