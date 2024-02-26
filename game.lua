@@ -174,6 +174,7 @@ function scene:create( event )
 
 
 	-- 퀘스트 진행 중 기존 게임화면에 비의도적 변동사항이 없도록 키보드 입력 중단/재개하는 코드 --
+	local questIng = "F"
 	local function questStart()
 		movingDirection = ""
 			if(moveTimer) then
@@ -187,6 +188,7 @@ function scene:create( event )
 		Runtime:removeEventListener("key", onKeyEvent)
 	end
 	local function questEnd(event)
+		questIng = "F"
 		if not Runtime:hasEventListener("key", onKeyEvent) then
 			Runtime:addEventListener("key", onKeyEvent)
 		end
@@ -297,6 +299,7 @@ function scene:create( event )
 
 	    -- 플레이어와 총 이미지 사이의 거리가 일정 값 이하이고 외계인이 아직 생성되지 않은 경우에만 외계인 생성
 	    if distance <= 100 and aliensCreated < 10 then
+			questIng = "T"
 
 	        for i = 1, 10 do
 	            createAlien() -- 외계인 10마리 생성
@@ -418,9 +421,10 @@ function scene:create( event )
 
 	local responeX, respawnY
 	local function checkQuest6(quest6Icon)
-		if (player.x > quest6Icon.x - 40 and player.x < quest6Icon.x + 40
-			and player.y > quest6Icon.y - 40 and player.y < quest6Icon.y + 40) then
+		if (player.x > quest6Icon.x - 60 and player.x < quest6Icon.x + 60
+			and player.y > quest6Icon.y - 60 and player.y < quest6Icon.y + 60) then
 			--questStart()
+			questIng = "T"
 			composer.showOverlay("questWalk")
 			respawnX, respawnY = quest6Icon.x, quest6Icon.y - 80
 			display.remove(quest6Icon)
@@ -468,23 +472,25 @@ function scene:create( event )
 	-- 퀘스트 반경 확인 --
 
 	local function onEnterFrame(event)
-  --   		if success.specialQ1 == "F" then
-		-- 	checkQuest(quest1)
-		-- end
-		if success.q1 == "F" then
-			checkQuest1(quest1Icon)
-		end
-		if success.q2 == "F" then
-			checkQuest2(quest2Icon)
-		end
-		if success.q3 == "F" then
-			checkQuest3(quest3Icon)
-		end
-		if success.q6 == "F" then
-			checkQuest6(quest6Icon)
-		end
-		if success.q7 == "F" then
-			checkQuest7(quest7Icon)
+		if(questIng == "F") then
+	--   		if success.specialQ1 == "F" then
+			-- 	checkQuest(quest1)
+			-- end
+			if success.q1 == "F" then
+				checkQuest1(quest1Icon)
+			end
+			if success.q2 == "F" then
+				checkQuest2(quest2Icon)
+			end
+			if success.q3 == "F" then
+				checkQuest3(quest3Icon)
+			end
+			if success.q6 == "F" then
+				checkQuest6(quest6Icon)
+			end
+			if success.q7 == "F" then
+				checkQuest7(quest7Icon)
+			end
 		end
 	end
 
