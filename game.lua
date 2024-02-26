@@ -126,7 +126,7 @@ function scene:create( event )
  	score:setFillColor(255, 255, 255)
 
 	--- 타이머 추가 -----------
-	local time= display.newText(75, display.contentWidth*0.37, display.contentHeight*0.1)
+	local time= display.newText(75, display.contentWidth*0.365, display.contentHeight*0.095)
  	time.size = 100
  	time:setFillColor(0)
 
