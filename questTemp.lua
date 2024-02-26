@@ -32,9 +32,9 @@ function scene:create( event )
  	numberText:setFillColor( 0.3 )
  	numberText.size = 50
 
- 	local randomNumber = math.random(15, 30) -- 15부터 40까지의 랜덤 숫자 생성
+ 	local randomNumber = math.random(15, 24) -- 15부터 24까지의 랜덤 숫자 생성
  	if(randomNumber == 26) then
- 		randomNumber = math.random(15, 30)
+ 		randomNumber = math.random(15, 24)
  	end
 
     numberText.text = randomNumber
