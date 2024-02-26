@@ -188,7 +188,7 @@ local function onWaterClick(event)
     if event.phase == "ended" then
         waterClickCount = waterClickCount + 1
         if waterClickCount == 12 then
-            score.text = score.text + 15
+            score.text = score.text + 20
 
 
             -- 클릭 횟수 초기화
@@ -210,7 +210,7 @@ water:addEventListener("touch", onWaterClick)
 
     -- 일퀘7번 종료 --
     local function questEnd(event)
-        if tonumber(score.text) == 15 then
+        if tonumber(score.text) == 20 then
             display.remove(background)
             display.remove(title)
             display.remove(water)
