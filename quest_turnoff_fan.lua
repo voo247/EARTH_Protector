@@ -15,7 +15,7 @@ function scene:create( event )
     background:setStrokeColor( 0.6 )
     background:setFillColor(1, 1, 0.9 )
 
-    local title = display.newText("선풍기를 꺼 주세요!", display.contentWidth/2, display.contentHeight*0.2)
+    local title = display.newText("선풍기를 꺼 주세요!", display.contentWidth/2, display.contentHeight*0.2, "source/나눔손글씨 신혼부부.ttf")
     title:setFillColor( 0 )
     title.size = 70
 
@@ -24,9 +24,15 @@ function scene:create( event )
     fan1.height = 500
     fan1.width = 520
     fan1.x, fan1.y = display.contentHeight*0.9, display.contentWidth*0.3
-    local fan2 = display.newImage("image/선풍기/선풍기2.png")
-    local fan3 = display.newImage("image/선풍기/선풍기3.png")
-    local fan4 = display.newImage("image/선풍기/선풍기4.png")
+    fan2 = display.newImage("image/선풍기/선풍기2.png")
+    fan2.height = 0
+    fan2.width = 0
+    fan3 = display.newImage("image/선풍기/선풍기3.png")
+    fan3.height = 0
+    fan3.width = 0
+    fan4 = display.newImage("image/선풍기/선풍기4.png")
+    fan4.height = 0
+    fan4.width = 0
 
     local function tapEvent1( event )
         fan2.height = 500
@@ -60,15 +66,7 @@ function scene:create( event )
         fan4.width = 520
         fan4.x, fan4.y = display.contentHeight*0.9, display.contentWidth*0.3
         display.remove(fan3)
-    end
-    fan3:addEventListener("tap", tapEvent3)
 
-    local function tapEvent3( event )
-        local timeAttack = timer.performWithDelay(1000, questEnd)
-        fan4.height = 500
-        fan4.width = 520
-        fan4.x, fan4.y = display.contentHeight*0.9, display.contentWidth*0.3
-        display.remove(fan3)
     end
     fan3:addEventListener("tap", tapEvent3)
 end
