@@ -394,7 +394,7 @@ drawTrees()
 --end
 ---------------------------------------------------------------------------------
 
-    -- 미니게임 종료 --
+    -- 일반퀘스트 7번 종료 --
     local function questEnd(event)
         if (waterClickCount == 24) then
             display.remove(background)
