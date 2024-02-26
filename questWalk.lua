@@ -106,7 +106,7 @@ function scene:create( event )
         elseif q6ing then
             local tolerance = 70
             if (display.contentWidth*0.553 - tolerance <= pX and pX <= display.contentWidth*0.583 + tolerance and
-            display.contentHeight*0.31 - tolerance <= pY and pY <= display.contentHeight*0.34 + tolerance) then
+            display.contentHeight*0.30 - tolerance <= pY and pY <= display.contentHeight*0.35 + tolerance) then
                 --print("GAME START")
             elseif (display.contentWidth*0.29 - tolerance <= pX and pX <= display.contentWidth*0.568 + tolerance and
             display.contentHeight*0.325 - tolerance <= pY and pY <= display.contentHeight*0.325 + tolerance) then
