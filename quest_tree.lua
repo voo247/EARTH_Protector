@@ -42,6 +42,7 @@ function scene:create(event)
 
 
     ----------바구니 클릭하면 씨앗없는 바구니로-----
+    local inBasket = "Full"
     local function onBasketClick(event)
     if event.phase == "ended" then
         if basket then
@@ -52,6 +53,7 @@ function scene:create(event)
         basket.x, basket.y = display.contentWidth * 0.2, display.contentHeight * 0.8
         basket.height = 300
         basket.width = 300
+        inBasket = nil
     end
 end
 
@@ -63,7 +65,7 @@ basket:addEventListener("touch", onBasketClick)
 
 -- 물뿌리개 이미지 클릭 이벤트 처리
 local function onWaterClick(event)
-    if event.phase == "ended" then
+    if event.phase == "ended" and inBasket == nil then
         waterClickCount = waterClickCount + 1
         if waterClickCount == 3 then
             -- 나무 이미지를 이미지 2로 대체
@@ -93,7 +95,7 @@ water:addEventListener("touch", onWaterClick)
 
 -- 물뿌리개 이미지 클릭 이벤트 처리
 local function onWaterClick(event)
-    if event.phase == "ended" then
+    if event.phase == "ended" and inBasket == nil then
         waterClickCount = waterClickCount + 1
         if waterClickCount == 6 then
             -- 나무 이미지를 이미지 3로 대체
@@ -122,7 +124,7 @@ water:addEventListener("touch", onWaterClick)
 
 -- 물뿌리개 이미지 클릭 이벤트 처리
 local function onWaterClick(event)
-    if event.phase == "ended" then
+    if event.phase == "ended" and inBasket == nil then
         waterClickCount = waterClickCount + 1
         if waterClickCount == 9 then
             -- 나무 이미지를 이미지 4로 대체
@@ -149,7 +151,7 @@ water:addEventListener("touch", onWaterClick)
 
 -- 물뿌리개 이미지 클릭 이벤트 처리
 local function onWaterClick(event)
-    if event.phase == "ended" then
+    if event.phase == "ended" and inBasket == nil then
         waterClickCount = waterClickCount + 1
         if waterClickCount == 12 then
             -- 나무 이미지를 이미지 5로 대체
@@ -185,7 +187,7 @@ local waterClickCount = 0
 
 -- 물뿌리개 이미지 클릭 이벤트 처리
 local function onWaterClick(event)
-    if event.phase == "ended" then
+    if event.phase == "ended" and inBasket == nil then
         waterClickCount = waterClickCount + 1
         if waterClickCount == 12 then
             score.text = score.text + 20
