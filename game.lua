@@ -6,7 +6,7 @@
 
 local composer = require( "composer" )
 local scene = composer.newScene()
-local score
+score = 0
 
 function scene:create( event )
 	local sceneGroup = self.view
@@ -295,7 +295,7 @@ function scene:create( event )
 					local removedAlien = table.remove(aliens)  -- 테이블에서 외계인 제거
 					display.remove(removedAlien)
 				end
-				score.text = score.text - 40
+				-- score.text = score.text - 40
 				alien_score = 0
 				alien_timer.alpha = 0
 				accept.x = 3000

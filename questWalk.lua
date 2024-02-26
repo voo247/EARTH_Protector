@@ -4,10 +4,10 @@ local composer = require( "composer" )
 local scene = composer.newScene()
 
 function scene:create( event )
-	local sceneGroup = self.view
+    local sceneGroup = self.view
 
-	physics.start()
-	physics.setDrawMode("hybrid")
+    physics.start()
+    physics.setDrawMode("hybrid")
 
     -- 플레이어 캐릭터 위치 실시간으로 전달받기(다리 중심) --
     local pX, pY
@@ -19,7 +19,7 @@ function scene:create( event )
     end
     
     Runtime:addEventListener("playerPositionUpdate", updatePlayerPosition)
-	
+    
     -- 경로 회색선 --
     local line = display.newLine(
         display.contentWidth*0.568, display.contentHeight*0.325, 
@@ -93,6 +93,8 @@ function scene:create( event )
             table.remove(triangles, i)
         end
 
+        
+
         scene:destroy()
         composer.removeScene("questWalk")
         composer.gotoScene("game")
@@ -130,17 +132,28 @@ function scene:create( event )
     Runtime:addEventListener("enterFrame", isPCOnLine)
 end
 
+ function scene:hide( event )
+    local sceneGroup = self.view
+    
+    if event.phase == "did" then
+        score.text = score.text + 10
+    end
+ end
+
 function scene:destroy( event )
-	local sceneGroup = self.view
-	
+    local sceneGroup = self.view
+    
     local event = { name = "questEnd" }
     Runtime:dispatchEvent(event)
+
+
 end
 
 ---------------------------------------------------------------------------------
 
 -- Listener setup
 scene:addEventListener( "create", scene )
+scene:addEventListener( "hide", scene )
 scene:addEventListener( "destroy", scene )
 
 -----------------------------------------------------------------------------------------

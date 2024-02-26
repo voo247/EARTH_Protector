@@ -4,20 +4,20 @@ local composer = require( "composer" )
 local scene = composer.newScene()
 
 function scene:create( event )
-	local sceneGroup = self.view
+    local sceneGroup = self.view
 
-	physics.start()
-	physics.setDrawMode("hybrid")
+    physics.start()
+    physics.setDrawMode("hybrid")
 
     -- 바탕 --
     local background = display.newRoundedRect(display.contentWidth/2, display.contentHeight/2, display.contentWidth*0.85, display.contentHeight*0.75, 55)
- 	background.strokeWidth = 10
-	background:setStrokeColor( 0.6 )
- 	background:setFillColor(1, 1, 0.9 )
+    background.strokeWidth = 10
+    background:setStrokeColor( 0.6 )
+    background:setFillColor(1, 1, 0.9 )
 
- 	local title = display.newText("분리수거", display.contentWidth/2, display.contentHeight*0.2, "source/나눔손글씨 신혼부부.ttf")
- 	title:setFillColor( 0.6 )
- 	title.size = 70
+    local title = display.newText("분리수거", display.contentWidth/2, display.contentHeight*0.2, "source/나눔손글씨 신혼부부.ttf")
+    title:setFillColor( 0.6 )
+    title.size = 70
 
     -- 쓰레기통과 쓰레기가 겹치는가? --
     local function isOverlap(trashBucket, trash)
@@ -156,9 +156,17 @@ function scene:create( event )
     Runtime:addEventListener("enterFrame", questEnd)
 end
 
+ function scene:hide( event )
+    local sceneGroup = self.view
+    
+    if event.phase == "did" then
+        score.text = score.text + 20
+    end
+ end
+
 function scene:destroy( event )
-	local sceneGroup = self.view
-	
+    local sceneGroup = self.view
+    
     local event = { name = "questEnd" }
     Runtime:dispatchEvent(event)
 end
@@ -167,6 +175,7 @@ end
 
 -- Listener setup
 scene:addEventListener( "create", scene )
+scene:addEventListener( "hide", scene )
 scene:addEventListener( "destroy", scene )
 
 -----------------------------------------------------------------------------------------

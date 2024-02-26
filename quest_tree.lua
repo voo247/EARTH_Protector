@@ -11,16 +11,18 @@ function scene:create(event)
     physics.setDrawMode("hybrid")
 
     -- 배경 추가
-    local background = display.newImageRect("image/배경_인물/배경.png", display.contentWidth, display.contentHeight)
-    background.x, background.y = display.contentWidth / 2, display.contentHeight / 2
+    local background = display.newRoundedRect(display.contentWidth/2, display.contentHeight/2, display.contentWidth*0.85, display.contentHeight*0.75, 55)
+    background.strokeWidth = 10
+    background:setStrokeColor( 0.6 )
+    background:setFillColor(1, 1, 0.9 )
 
     local title = display.newText("나무를 심자!", display.contentWidth/2, display.contentHeight*0.2, "source/나눔손글씨 신혼부부.ttf")
     title:setFillColor( 0.6 )
     title.size = 70
 
     -- 점수 추가
-    local score = display.newText(0, display.contentWidth * 0.62, display.contentHeight * 0.1, native.systemFont, 100, "source/나눔손글씨 신혼부부.ttf")
-    score:setFillColor(0)
+    -- local score = display.newText(0, display.contentWidth * 0.62, display.contentHeight * 0.1, native.systemFont, 100, "source/나눔손글씨 신혼부부.ttf")
+    -- score:setFillColor(0)
 
     -- 바구니 이미지
     local basket = display.newImage("image/나무/씨앗.png")
@@ -190,7 +192,7 @@ local function onWaterClick(event)
     if event.phase == "ended" and inBasket == nil then
         waterClickCount = waterClickCount + 1
         if waterClickCount == 12 then
-            score.text = score.text + 20
+            tree_score = tree_score + 20
 
 
             -- 클릭 횟수 초기화
@@ -212,13 +214,15 @@ water:addEventListener("touch", onWaterClick)
 
     -- 일퀘7번 종료 --
     local function questEnd(event)
-        if tonumber(score.text) == 20 then
+        if tree_score == 20 then
             display.remove(background)
             display.remove(title)
             display.remove(water)
             display.remove(basket)
             display.remove(tree)
             --end
+
+ 
 
             scene:destroy()
             composer.removeScene("quest_tree")
@@ -232,6 +236,14 @@ end
 
     
 ---------------------------------------------------------------------------------
+ function scene:hide( event )
+    local sceneGroup = self.view
+    
+    if event.phase == "did" then
+        score.text = score.text + 20
+    end
+ end
+
 function scene:destroy( event )
     local sceneGroup = self.view
     
