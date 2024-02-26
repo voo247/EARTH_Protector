@@ -14,12 +14,12 @@ function scene:create(event)
     local background = display.newImageRect("image/배경_인물/배경.png", display.contentWidth, display.contentHeight)
     background.x, background.y = display.contentWidth / 2, display.contentHeight / 2
 
-    local title = display.newText("나무를 심자!", display.contentWidth/2, display.contentHeight*0.2)
+    local title = display.newText("나무를 심자!", display.contentWidth/2, display.contentHeight*0.2, "source/나눔손글씨 신혼부부.ttf")
     title:setFillColor( 0.6 )
     title.size = 70
 
     -- 점수 추가
-    local score = display.newText(0, display.contentWidth * 0.62, display.contentHeight * 0.1, native.systemFont, 100)
+    local score = display.newText(0, display.contentWidth * 0.62, display.contentHeight * 0.1, native.systemFont, 100, "source/나눔손글씨 신혼부부.ttf")
     score:setFillColor(0)
 
     -- 바구니 이미지
