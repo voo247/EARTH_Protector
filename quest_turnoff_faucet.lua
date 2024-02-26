@@ -1,8 +1,8 @@
 local faucetImages = {
-    "수도꼭지1.png",
-    "수도꼭지2.png",
-    "수도꼭지3.png",
-    "수도꼭지4.png"
+    "image/수도꼭지/수도꼭지1.png",
+    "image/수도꼭지/수도꼭지2.png",
+    "image/수도꼭지/수도꼭지3.png",
+    "image/수도꼭지/수도꼭지4.png"
 }
 
 local currentImageIndex = 1
