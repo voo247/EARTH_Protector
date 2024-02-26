@@ -121,12 +121,12 @@ function scene:create( event )
 	Runtime:addEventListener("key", onKeyEvent)
 
 	--- 점수 추가 -----------
-	score = display.newText(0, display.contentWidth*0.625, display.contentHeight*0.095)
+	score = display.newText(0, display.contentWidth*0.625, display.contentHeight*0.095, "source/나눔손글씨 신혼부부.ttf")
  	score.size = 70
  	score:setFillColor(1, 1, 1)
 
 	--- 타이머 추가 -----------
-	local time = display.newText(75, display.contentWidth * 0.365, display.contentHeight * 0.095)
+	local time = display.newText(75, display.contentWidth * 0.365, display.contentHeight * 0.095, "source/나눔손글씨 신혼부부.ttf")
 	time.size = 70
 	time:setFillColor(1, 1, 1)
 	local timeAttack
@@ -322,7 +322,7 @@ function scene:create( event )
 					aliensCreated = 10 -- 생성된 외계인의 수를 10으로 설정하여 더 이상 생성되지 않도록 함
 				end
 
-				alien_timer = display.newText(15, display.contentWidth*0.43, display.contentHeight*0.105)
+				alien_timer = display.newText(15, display.contentWidth*0.43, display.contentHeight*0.105, "source/나눔손글씨 신혼부부.ttf")
 				alien_timer.size = 85
 				alien_timer:setFillColor(1, 0, 0)
 				alien_timer.alpha = 0.8
