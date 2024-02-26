@@ -317,13 +317,13 @@ function scene:create( event )
 
 
 
-		----- 일반 퀘스트 7번 실행 : 나무심기 ------------
+	----- 일반 퀘스트 7번 실행 : 나무심기 ------------
 	local quest7Icon = display.newImage("image/배경_인물/퀘스트박스.png")
-	quest7Icon.x, quest7Icon.y = 500, 860
+	quest7Icon.x, quest7Icon.y = 900, 860
     quest7Icon.height, quest7Icon.width = 150, 150
 
     local quest7Alarm = display.newImage("image/퀘스트알람/퀘스트_나무.png")
-	quest7Alarm.x, quest7Alarm.y = display.contentWidth * 0.5, display.contentHeight * 0.68
+	quest7Alarm.x, quest7Alarm.y = display.contentWidth * 0.44, display.contentHeight * 0.68
 
 
 	local function checkQuest7(quest7Icon)
