@@ -132,14 +132,6 @@ function scene:create( event )
     Runtime:addEventListener("enterFrame", isPCOnLine)
 end
 
- function scene:hide( event )
-    local sceneGroup = self.view
-    
-    if event.phase == "did" then
-        score.text = score.text + 10
-    end
- end
-
 function scene:destroy( event )
     local sceneGroup = self.view
     
@@ -153,7 +145,6 @@ end
 
 -- Listener setup
 scene:addEventListener( "create", scene )
-scene:addEventListener( "hide", scene )
 scene:addEventListener( "destroy", scene )
 
 -----------------------------------------------------------------------------------------

@@ -49,10 +49,10 @@ function scene:create( event )
         display.remove(title)
         display.remove(fan4)
 
-    scene:destroy()
-    composer.removeScene("quest_turnoff_fan")
-    composer.gotoScene("game")
-end
+        scene:destroy()
+        composer.removeScene("quest_turnoff_fan")
+        composer.gotoScene("game")
+    end
 
     local function tapEvent3( event )
         local timeAttack = timer.performWithDelay(1000, questEnd)

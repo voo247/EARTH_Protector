@@ -370,6 +370,7 @@ function scene:create( event )
 			display.remove(quest1Icon)
 			display.remove(quest1Alarm)
 			success.q1 = "T"
+			score.text = score.text + 10
 		end
 	end
 
@@ -392,6 +393,7 @@ function scene:create( event )
 			display.remove(quest2Icon)
 			display.remove(quest2Alarm)
 			success.q2 = "T"
+			score.text = score.text + 20
 		end
 	end
 
@@ -414,6 +416,7 @@ function scene:create( event )
 			display.remove(quest3Icon)
 			display.remove(quest3Alarm)
 			success.q3 = "T"
+			score.text = score.text + 15
 		end
 	end
 
@@ -436,6 +439,7 @@ function scene:create( event )
 			display.remove(quest4Icon)
 			display.remove(quest4Alarm)
 			success.q4 = "T"
+			score.text = score.text + 15
 		end
 	end
 
@@ -471,6 +475,7 @@ function scene:create( event )
 			display.remove(quest6Icon)
 			display.remove(quest6Alarm)
 			success.q6 = "T"
+			score.text = score.text + 10
 		end
 	end
 
@@ -503,6 +508,7 @@ function scene:create( event )
 			display.remove(quest7Icon)
 			display.remove(quest7Alarm)
 			success.q7 = "T"
+			score.text = score.text + 20
 		end
 	end
 	    
