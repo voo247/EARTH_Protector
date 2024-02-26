@@ -404,8 +404,8 @@ drawTrees()
         if (waterClickCount == 24) then
             display.remove(background)
             display.remove(title)
-            display.remove(image/나무/4.png)
-            display.remove(image/나무/5.png)
+            display.remove(tree4Image)
+            display.remove(tree5Image)
             display.remove(water)
             display.remove(basket)
             end
