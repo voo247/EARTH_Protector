@@ -232,120 +232,122 @@ function scene:create( event )
 
 
 	------ 스페셜 퀘스트 1번 : 외계인 침공 --------------------------------------
-	local aliensCreated = 0 -- 생성된 외계인의 수
-	local alien_score = 0 -- 외계인 사냥 점수
-	local alien_timer -- 외계인 퀘스트 타이머 
-	local alien_timeAttack
-	local aliens = {} -- 외계인 테이블
+	local function specialQ1Start()
+		local aliensCreated = 0 -- 생성된 외계인의 수
+		local alien_score = 0 -- 외계인 사냥 점수
+		local alien_timer -- 외계인 퀘스트 타이머 
+		local alien_timeAttack
+		local aliens = {} -- 외계인 테이블
 
-	--- 총 이미지 (수락) -------
-   local accept = display.newImage("image/자료2/총.png")
-	accept.x, accept.y = display.contentWidth*0.71, display.contentHeight*0.85
-    accept.height = 170
-    accept.width = 170
+		--- 총 이미지 (수락) -------
+	local accept = display.newImage("image/자료2/총.png")
+		accept.x, accept.y = display.contentWidth*0.71, display.contentHeight*0.85
+		accept.height = 170
+		accept.width = 170
 
-	local function moveAlien(alien)
-	    local destX = math.random(display.contentWidth)
-	    local destY = math.random(display.contentHeight)
-	    
-	    transition.to(alien, {time = 1000, x = destX, y = destY, onComplete = function()
-	        moveAlien(alien)
-	    end})
-	end
-
-	-- 외계인 생성 및 터치 이벤트 처리
-	local function createAlien()
-	    local alien = display.newImage("image/배경_인물/외계인.png")
-	    alien.height = 200
-	    alien.width = 200
-	    alien.x, alien.y = math.random(display.contentWidth), math.random(display.contentHeight)
-	    
-	    -- 외계인 터치 이벤트 처리
-	    local function onTouch(event)
-	        if event.phase == "began" then
-	            display.remove(alien)
-	            alien_score = alien_score + 3
-	        end
-	        return true
-	    end
-
-	    alien:addEventListener("touch", onTouch)
-	    
-	    moveAlien(alien)
-	    table.insert(aliens, alien)
-	    return alien
-	end
-
-	-- 타이머 카운트 함수(게임 종료)
-	local function alien_counter( event )
-		alien_timer.text = alien_timer.text - 1
-		print(alien_timer.text)
-
-		if(alien_score == 30) then
-			score.text = score.text + 40
-			alien_score = 0
-			alien_timer.alpha = 0
-			accept.x = 3000
-
-			success.specialQ1 = "T"
-			questEnd()
-		elseif(alien_timer.text == '-1' and alien_score < 30) then
-			for i = 0, 10 do
-				local removedAlien = table.remove(aliens)  -- 테이블에서 외계인 제거
-                display.remove(removedAlien)
-	        end
-	        score.text = score.text - 40
-			alien_score = 0
-			alien_timer.alpha = 0
-			accept.x = 3000
-
-			success.specialQ1 = "T"
-			questEnd()
+		local function moveAlien(alien)
+			local destX = math.random(display.contentWidth)
+			local destY = math.random(display.contentHeight)
+			
+			transition.to(alien, {time = 1000, x = destX, y = destY, onComplete = function()
+				moveAlien(alien)
+			end})
 		end
+
+		-- 외계인 생성 및 터치 이벤트 처리
+		local function createAlien()
+			local alien = display.newImage("image/배경_인물/외계인.png")
+			alien.height = 200
+			alien.width = 200
+			alien.x, alien.y = math.random(display.contentWidth), math.random(display.contentHeight)
+			
+			-- 외계인 터치 이벤트 처리
+			local function onTouch(event)
+				if event.phase == "began" then
+					display.remove(alien)
+					alien_score = alien_score + 3
+				end
+				return true
+			end
+
+			alien:addEventListener("touch", onTouch)
+			
+			moveAlien(alien)
+			table.insert(aliens, alien)
+			return alien
+		end
+
+		-- 타이머 카운트 함수(게임 종료)
+		local function alien_counter( event )
+			alien_timer.text = alien_timer.text - 1
+			print(alien_timer.text)
+
+			if(alien_score == 30) then
+				score.text = score.text + 40
+				alien_score = 0
+				alien_timer.alpha = 0
+				accept.x = 3000
+
+				success.specialQ1 = "T"
+				questEnd()
+			elseif(alien_timer.text == '-1' and alien_score < 30) then
+				for i = 0, 10 do
+					local removedAlien = table.remove(aliens)  -- 테이블에서 외계인 제거
+					display.remove(removedAlien)
+				end
+				score.text = score.text - 40
+				alien_score = 0
+				alien_timer.alpha = 0
+				accept.x = 3000
+
+				success.specialQ1 = "T"
+				questEnd()
+			end
+		end
+
+		function createAliensNearPlayer()
+			-- 캐릭터와 총 이미지의 중심 위치 계산
+			local playerCenterX, playerCenterY = player.x + player.width / 2, player.y + player.height / 2
+			local acceptCenterX, acceptCenterY = accept.x + accept.width / 2, accept.y + accept.height / 2
+
+			-- 캐릭터와 총 이미지 사이의 거리 계산
+			local distance = math.sqrt((playerCenterX - acceptCenterX)^2 + (playerCenterY - acceptCenterY)^2)
+
+			-- 플레이어와 총 이미지 사이의 거리가 일정 값 이하이고 외계인이 아직 생성되지 않은 경우에만 외계인 생성
+			if distance <= 100 and aliensCreated < 10 then
+				questStart()
+
+				for i = 1, 10 do
+					createAlien() -- 외계인 10마리 생성
+					aliensCreated = 10 -- 생성된 외계인의 수를 10으로 설정하여 더 이상 생성되지 않도록 함
+				end
+
+				alien_timer = display.newText(15, display.contentWidth*0.43, display.contentHeight*0.105)
+				alien_timer.size = 85
+				alien_timer:setFillColor(1, 0, 0)
+				alien_timer.alpha = 0.8
+
+				alien_timeAttack = timer.performWithDelay(1000, alien_counter, 16)
+
+
+				-- 캐릭터 이미지를 캐릭터_총 이미지로 변경
+				display.remove(player)
+				player = display.newImage("image/자료2/캐릭터_총.png")
+				player.x, player.y = display.contentWidth*0.71, display.contentHeight*0.85
+			end
+		end
+
+
+
+
+		-- local function onEnterFrame(event)
+		--     createAliensNearPlayer()
+		-- end
+
+		-- Runtime:addEventListener("enterFrame", onEnterFrame)
+
+		------ 외계인 침공 끝 --------------------------------------
 	end
-
-	local function createAliensNearPlayer()
-	    -- 캐릭터와 총 이미지의 중심 위치 계산
-	    local playerCenterX, playerCenterY = player.x + player.width / 2, player.y + player.height / 2
-	    local acceptCenterX, acceptCenterY = accept.x + accept.width / 2, accept.y + accept.height / 2
-
-	    -- 캐릭터와 총 이미지 사이의 거리 계산
-	    local distance = math.sqrt((playerCenterX - acceptCenterX)^2 + (playerCenterY - acceptCenterY)^2)
-
-	    -- 플레이어와 총 이미지 사이의 거리가 일정 값 이하이고 외계인이 아직 생성되지 않은 경우에만 외계인 생성
-	    if distance <= 100 and aliensCreated < 10 then
-			questStart()
-
-	        for i = 1, 10 do
-	            createAlien() -- 외계인 10마리 생성
-	            aliensCreated = 10 -- 생성된 외계인의 수를 10으로 설정하여 더 이상 생성되지 않도록 함
-	        end
-
-	        alien_timer = display.newText(15, display.contentWidth*0.43, display.contentHeight*0.105)
-		 	alien_timer.size = 85
-		 	alien_timer:setFillColor(1, 0, 0)
-		 	alien_timer.alpha = 0.8
-
-		 	alien_timeAttack = timer.performWithDelay(1000, alien_counter, 16)
-
-
-	        -- 캐릭터 이미지를 캐릭터_총 이미지로 변경
-	        display.remove(player)
-	        player = display.newImage("image/자료2/캐릭터_총.png")
-	        player.x, player.y = display.contentWidth*0.71, display.contentHeight*0.85
-	    end
-	end
-
-
-
-
-	-- local function onEnterFrame(event)
-	--     createAliensNearPlayer()
-	-- end
-
-	-- Runtime:addEventListener("enterFrame", onEnterFrame)
-
-	------ 외계인 침공 끝 --------------------------------------
 
 
 
@@ -461,6 +463,7 @@ function scene:create( event )
 		if (player.x > quest6Icon.x - 60 and player.x < quest6Icon.x + 60
 			and player.y > quest6Icon.y - 200 and player.y < quest6Icon.y) then
 			--questStart()
+			specialQ1Start()
 			questIng = "T"
 			composer.showOverlay("questWalk")
 			respawnX, respawnY = quest6Icon.x, quest6Icon.y - 100
@@ -510,7 +513,7 @@ function scene:create( event )
 
 	local function onEnterFrame(event)
 		if(questIng == "F") then
-			if success.specialQ1 == "F" then
+			if success.q6 == "T" and success.specialQ1 == "F" then
 				createAliensNearPlayer()
 			end
 			if success.q1 == "F" then
