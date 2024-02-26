@@ -286,6 +286,7 @@ function scene:create( event )
 				score.text = score.text + 40
 				alien_score = 0
 				alien_timer.alpha = 0
+				timer.pause( alien_timeAttack )
 				accept.x = 3000
 
 				success.specialQ1 = "T"
@@ -295,7 +296,7 @@ function scene:create( event )
 					local removedAlien = table.remove(aliens)  -- 테이블에서 외계인 제거
 					display.remove(removedAlien)
 				end
-				-- score.text = score.text - 40
+				score.text = score.text - 40
 				alien_score = 0
 				alien_timer.alpha = 0
 				accept.x = 3000
