@@ -1,7 +1,7 @@
-local fanImage1 = "선풍기1.png"
-local fanImage2 = "선풍기2.png"
-local fanImage3 = "선풍기3.png"
-local fanImage4 = "선풍기4.png"
+local fanImage1 = "image/선풍기/선풍기1.png"
+local fanImage2 = "image/선풍기/선풍기2.png"
+local fanImage3 = "image/선풍기/선풍기3.png"
+local fanImage4 = "image/선풍기/선풍기4.png"
 local fanState = 0  -- 선풍기 클릭 횟수
 
 
