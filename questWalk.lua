@@ -126,7 +126,7 @@ function scene:create( event )
         end
     end
 
-    Runtime:addEventListener("key", isPCOnLine)
+    Runtime:addEventListener("enterFrame", isPCOnLine)
 end
 
 ---------------------------------------------------------------------------------
