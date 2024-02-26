@@ -393,22 +393,20 @@ drawTrees()
 
 
 
-
 --end
 ---------------------------------------------------------------------------------
 
 
-
     -- 일퀘7번 종료 --
     local function questEnd(event)
-        if (waterClickCount == 24) then
+        if tonumber(score.text) == 15 then
             display.remove(background)
             display.remove(title)
-            display.remove(tree4Image)
             display.remove(tree5Image)
+            display.remove(treeGroup)
             display.remove(water)
             display.remove(basket)
-            end
+            --end
 
             scene:destroy()
             composer.removeScene("quest_tree")
@@ -417,17 +415,16 @@ drawTrees()
     end
 
     Runtime:addEventListener("enterFrame", questEnd)
---end
 
+end
+    
+---------------------------------------------------------------------------------
 function scene:destroy( event )
-	local sceneGroup = self.view
-	
+    local sceneGroup = self.view
+    
     local event = { name = "questEnd" }
     Runtime:dispatchEvent(event)
 end
-
-
----------------------------------------------------------------------------------
 
 
 -- Listener setup
