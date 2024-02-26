@@ -399,6 +399,28 @@ function scene:create( event )
 		end
 	end
 
+
+	-- 일반 퀘스트 4번 실행 : 선풍기 --
+	local quest4Icon = display.newImage("image/배경_인물/퀘스트박스.png")
+	quest4Icon.x, quest4Icon.y = coordinates[4].x, coordinates[4].y
+    quest4Icon.height, quest4Icon.width = 150, 150
+
+    local quest4Alarm = display.newImage("image/퀘스트알람/퀘스트_선풍기.png")
+	quest4Alarm.x, quest4Alarm.y = quest4Icon.x - display.contentWidth * 0.04, quest4Icon.y - display.contentHeight * 0.125
+
+
+	local function checkQuest4(quest4Icon)
+		if (player.x > quest4Icon.x - 100 and player.x < quest4Icon.x + 100
+			and player.y > quest4Icon.y - 100 and player.y < quest4Icon.y + 100) then
+
+			questStart()
+			composer.showOverlay("quest_turnoff.fan")
+			display.remove(quest4Icon)
+			display.remove(quest4Alarm)
+			success.q4 = "T"
+		end
+	end
+
 	
 	-- 일반 퀘스트 6번 : 걷기 --
 	local quest6Icon = display.newImage("image/배경_인물/퀘스트박스.png")
@@ -484,6 +506,9 @@ function scene:create( event )
 			end
 			if success.q3 == "F" then
 				checkQuest3(quest3Icon)
+			end
+			if success.q4 == "F" then
+				checkQuest4(quest4Icon)
 			end
 			if success.q6 == "F" then
 				checkQuest6(quest6Icon)
