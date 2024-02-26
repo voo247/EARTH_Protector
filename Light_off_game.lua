@@ -20,6 +20,10 @@ function scene:create( event )
     title.size = 70
 
     ---스위치 끄기 퀘스트----------
+	local button = display.newRect(display.contentCenterX, display.contentCenterY, 100, 80)
+    button.x = button.x + 70
+    button.y = button.y + 45
+
     local switchOn = display.newImage("image/퀘스트_자전거_스위치/스위치1.png")
     switchOn.height = 500
     switchOn.width = 350
@@ -31,9 +35,8 @@ function scene:create( event )
     local function questEnd(event)
         display.remove(background)
         display.remove(title)
-        display.remove(switchOn)
         display.remove(switchOff)
-
+        display.remove(button)
 
         scene:destroy()
         composer.removeScene("light_off_game")
@@ -42,12 +45,13 @@ function scene:create( event )
  
     function tapEvent1( event )
         local timeAttack = timer.performWithDelay(1000, questEnd)
+        display.remove(switchOn)
         switchOff = display.newImage("image/퀘스트_자전거_스위치/스위치2.png")
         switchOff.height = 500
         switchOff.width = 350
         switchOff.x, switchOff.y = display.contentHeight*0.9, display.contentWidth*0.3
     end
-    switchOn:addEventListener("tap", tapEvent1)
+    button:addEventListener("tap", tapEvent1)
 end
 
 
