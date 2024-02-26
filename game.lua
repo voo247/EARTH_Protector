@@ -548,6 +548,26 @@ function scene:create( event )
 end
 
 
+
+
+-- 배경 음악 파일 경로----------------------------------------------
+-- 배경 음악 파일 경로
+local bgmFile = "music/해커톤_Speak The Truth - Go By Ocean _ Ryan McCaffrey{배경4}.mp3"
+
+-- 배경 음악을 재생하는 함수
+local function playBackgroundMusic()
+    -- 배경 음악을 로드하고 재생합니다.
+    audio.play(audio.loadStream(bgmFile), { loops = -1 })
+end
+
+-- 스크립트가 로드될 때 배경 음악을 재생합니다.
+playBackgroundMusic()
+
+---------------------------------------------------------------------------
+
+
+
+
 --[[function scene:show( event )
 	local sceneGroup = self.view
 	local phase = event.phase
