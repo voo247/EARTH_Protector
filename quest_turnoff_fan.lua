@@ -11,7 +11,7 @@ local background = display.newRoundedRect(display.contentWidth/2, display.conten
     background:setStrokeColor( 0.6 )
     background:setFillColor(1, 1, 0.9 )
 
-    local title = display.newText("탭을 눌러 선풍기를 꺼주세요!", display.contentWidth/2, display.contentHeight*0.2)
+    local title = display.newText("선풍기를 꺼주세요!", display.contentWidth/2, display.contentHeight*0.2)
     title:setFillColor( 0 )
     title.size = 70
 
