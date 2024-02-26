@@ -1,60 +1,91 @@
-local fanImage1 = "image/선풍기/선풍기1.png"
-local fanImage2 = "image/선풍기/선풍기2.png"
-local fanImage3 = "image/선풍기/선풍기3.png"
-local fanImage4 = "image/선풍기/선풍기4.png"
-local fanState = 0  -- 선풍기 클릭 횟수
+-----------------------------------------------------------------------------------------
+--
+-- 선풍기 끄기.lua
+--
+-----------------------------------------------------------------------------------------
 
+local composer = require( "composer" )
+local scene = composer.newScene()
 
---배경
-local background = display.newRoundedRect(display.contentWidth/2, display.contentHeight/2, display.contentWidth*0.85, display.contentHeight*0.75, 55)
+function scene:create( event )
+
+    ---배경-----------------
+    local background = display.newRoundedRect(display.contentWidth/2, display.contentHeight/2, display.contentWidth*0.85, display.contentHeight*0.75, 55)
     background.strokeWidth = 10
     background:setStrokeColor( 0.6 )
     background:setFillColor(1, 1, 0.9 )
 
-    local title = display.newText("선풍기를 꺼주세요!", display.contentWidth/2, display.contentHeight*0.2, "source/나눔손글씨 신혼부부.ttf")
+    local title = display.newText("선풍기를 꺼 주세요!", display.contentWidth/2, display.contentHeight*0.2)
     title:setFillColor( 0 )
     title.size = 70
 
+    ---선풍기 끄기 퀘스트----------
+    local fan1 = display.newImage("image/선풍기/선풍기1.png")
+    fan1.height = 500
+    fan1.width = 520
+    fan1.x, fan1.y = display.contentHeight*0.9, display.contentWidth*0.3
+    local fan2 = display.newImage("image/선풍기/선풍기2.png")
+    local fan3 = display.newImage("image/선풍기/선풍기3.png")
+    local fan4 = display.newImage("image/선풍기/선풍기4.png")
 
--- 빈 화면을 출력하는 함수
-local function clearScreen()
-    for i = 1, 25 do
-        print()
+    local function tapEvent1( event )
+        fan2.height = 500
+        fan2.width = 520
+        fan2.x, fan2.y = display.contentHeight*0.9, display.contentWidth*0.3
+        display.remove(fan1)
     end
-end
+    fan1:addEventListener("tap", tapEvent1)
 
--- 선풍기 이미지를 출력하는 함수
-local function drawFan(image)
-    clearScreen()
-    print(image)
-end
-
--- 초기화
-drawFan(fanImage1)
-
--- 탭 횟수에 따라 선풍기 이미지 변경
-local tapCount = 0  -- 탭 횟수 초기화
-while true do
-    print("탭을 입력하세요 (엔터 키를 누르십시오): ")
-    io.read()  -- 엔터 키 입력 대기
-
-    tapCount = tapCount + 1  -- 탭 횟수 증가
-    -- 탭 횟수에 따라 이미지 변경
-    if tapCount == 1 then
-        fanState = 0
-        drawFan(fanImage1)
-    elseif tapCount == 2 then
-        fanState = 1
-        drawFan(fanImage2)
-    elseif tapCount == 3 then
-        fanState = 0
-        drawFan(fanImage1)
-    elseif tapCount == 4 then
-        fanState = 2
-        drawFan(fanImage3)
-    elseif tapCount == 5 then
-        fanState = 3
-        drawFan(fanImage4)
-        tapCount = 0  -- 탭 횟수 초기화
+    local function tapEvent2( event )
+        fan3.height = 500
+        fan3.width = 520
+        fan3.x, fan3.y = display.contentHeight*0.9, display.contentWidth*0.3
+        display.remove(fan2)
     end
+    fan2:addEventListener("tap", tapEvent2)
+
+    local function questEnd(event)
+        display.remove(background)
+        display.remove(title)
+        display.remove(fan4)
+
+    scene:destroy()
+    composer.removeScene("quest_turnoff_fan")
+    composer.gotoScene("game")
 end
+
+    local function tapEvent3( event )
+        local timeAttack = timer.performWithDelay(1000, questEnd)
+        fan4.height = 500
+        fan4.width = 520
+        fan4.x, fan4.y = display.contentHeight*0.9, display.contentWidth*0.3
+        display.remove(fan3)
+    end
+    fan3:addEventListener("tap", tapEvent3)
+
+    local function tapEvent3( event )
+        local timeAttack = timer.performWithDelay(1000, questEnd)
+        fan4.height = 500
+        fan4.width = 520
+        fan4.x, fan4.y = display.contentHeight*0.9, display.contentWidth*0.3
+        display.remove(fan3)
+    end
+    fan3:addEventListener("tap", tapEvent3)
+end
+
+function scene:destroy( event )
+    local sceneGroup = self.view
+    
+    local event = { name = "questEnd" }
+    Runtime:dispatchEvent(event)
+end
+
+---------------------------------------------------------------------------------
+
+-- Listener setup
+scene:addEventListener( "create", scene )
+scene:addEventListener( "destroy", scene )
+
+-----------------------------------------------------------------------------------------
+
+return scene
