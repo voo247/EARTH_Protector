@@ -391,20 +391,36 @@ drawTrees()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-end
+--end
 ---------------------------------------------------------------------------------
 
+    -- 미니게임 종료 --
+    local function questEnd(event)
+        if (waterClickCount == 24) then
+            display.remove(background)
+            display.remove(title)
+            display.remove(image/4.png)
+            display.remove(image/5.png)
+            display.remove(water)
+            display.remove(basket)
+            end
+
+            scene:destroy()
+            composer.removeScene("quest_tree")
+            composer.gotoScene("game")
+        end
+    end
+
+    Runtime:addEventListener("enterFrame", questEnd)
+--end
+
+function scene:destroy( event )
+	local sceneGroup = self.view
+	
+    local event = { name = "questEnd" }
+    Runtime:dispatchEvent(event)
+end
+--------------------------------------------------------------------------------------
 -- Listener setup
 scene:addEventListener( "create", scene )
 scene:addEventListener( "show", scene )
