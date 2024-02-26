@@ -126,9 +126,16 @@ function scene:create( event )
  	score:setFillColor(1, 1, 1)
 
 	--- 타이머 추가 -----------
-	local time= display.newText(75, display.contentWidth*0.365, display.contentHeight*0.095)
- 	time.size = 70
- 	time:setFillColor(1, 1, 1)
+	local time = display.newText(75, display.contentWidth * 0.365, display.contentHeight * 0.095)
+	time.size = 70
+	time:setFillColor(1, 1, 1)
+	local timeAttack
+
+	local function counter(event)
+	    time.text = time.text - 1
+	end
+
+	timeAttack = timer.performWithDelay(1000, counter, 75)
 	
 	-- 랜덤 좌표 지정 --
 	math.randomseed(os.time())
@@ -272,14 +279,18 @@ function scene:create( event )
 	-- 타이머 카운트 함수(게임 종료)
 	local function alien_counter( event )
 		alien_timer.text = alien_timer.text - 1
+		print(alien_timer.text)
 
 		if(alien_score == 30) then
 			score.text = score.text + 40
 			alien_score = 0
 			alien_timer.alpha = 0
 			accept.x = 3000
+
+			success.specialQ1 = "T"
+			questEnd()
 		elseif(alien_timer.text == '-1' and alien_score < 30) then
-			for i = 0, (30 - alien_score)/3 do
+			for i = 0, 10 do
 				local removedAlien = table.remove(aliens)  -- 테이블에서 외계인 제거
                 display.remove(removedAlien)
 	        end
@@ -287,6 +298,9 @@ function scene:create( event )
 			alien_score = 0
 			alien_timer.alpha = 0
 			accept.x = 3000
+
+			success.specialQ1 = "T"
+			questEnd()
 		end
 	end
 
@@ -300,7 +314,7 @@ function scene:create( event )
 
 	    -- 플레이어와 총 이미지 사이의 거리가 일정 값 이하이고 외계인이 아직 생성되지 않은 경우에만 외계인 생성
 	    if distance <= 100 and aliensCreated < 10 then
-			questIng = "T"
+			questStart()
 
 	        for i = 1, 10 do
 	            createAlien() -- 외계인 10마리 생성
@@ -318,18 +332,18 @@ function scene:create( event )
 	        -- 캐릭터 이미지를 캐릭터_총 이미지로 변경
 	        display.remove(player)
 	        player = display.newImage("image/자료2/캐릭터_총.png")
-	        player.x, player.y = display.contentWidth*0.85, display.contentHeight*0.8
+	        player.x, player.y = display.contentWidth*0.71, display.contentHeight*0.85
 	    end
 	end
 
 
 
 
-	local function onEnterFrame(event)
-	    createAliensNearPlayer()
-	end
+	-- local function onEnterFrame(event)
+	--     createAliensNearPlayer()
+	-- end
 
-	Runtime:addEventListener("enterFrame", onEnterFrame)
+	-- Runtime:addEventListener("enterFrame", onEnterFrame)
 
 	------ 외계인 침공 끝 --------------------------------------
 
@@ -496,9 +510,9 @@ function scene:create( event )
 
 	local function onEnterFrame(event)
 		if(questIng == "F") then
-	--   		if success.specialQ1 == "F" then
-			-- 	checkQuest(quest1)
-			-- end
+			if success.specialQ1 == "F" then
+				createAliensNearPlayer()
+			end
 			if success.q1 == "F" then
 				checkQuest1(quest1Icon)
 			end
