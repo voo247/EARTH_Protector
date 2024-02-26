@@ -89,10 +89,14 @@ function scene:create( event )
         if( event.phase == "began" ) then
             display.getCurrentStage():setFocus( event.target )
             event.target.isFocus = true
-        elseif( event.phase == "moved" ) then
-            if ( event.target.isFocus ) then
-                event.target.x = event.xStart + event.xDelta
-                event.target.y = event.yStart + event.yDelta
+            event.target.markX = event.target.x -- 현재 위치 저장
+            event.target.markY = event.target.y
+    elseif (event.phase == "moved") then
+        if (event.target.isFocus) then
+            local x = (event.x - event.xStart) + event.target.markX
+            local y = (event.y - event.yStart) + event.target.markY
+
+            transition.to(event.target, {time = 1, x = x, y = y})
             end
         elseif ( event.phase == "ended" or event.phase == "cancelled") then
             if ( event.target.isFocus ) then
