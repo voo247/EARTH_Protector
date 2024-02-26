@@ -36,6 +36,10 @@ function scene:create(event)
     water.height = 350
     water.width = 500
 
+    
+
+
+
     ----------바구니 클릭하면 씨앗없는 바구니로-----
     local inBasket = "Full"
     local function onBasketClick(event)
@@ -50,10 +54,9 @@ function scene:create(event)
         basket.width = 300
         inBasket = nil
         -- 나무 이미지를 중앙에 배치
-    local tree = display.newImage("image/나무/t1.png")
+    tree = display.newImage("image/나무/t1.png")
     tree.x = display.contentCenterX
     tree.y = display.contentCenterY
-    
     end
 end
 
@@ -69,13 +72,12 @@ local function onWaterClick(event)
         waterClickCount = waterClickCount + 1
         if waterClickCount == 3 then
             -- 나무 이미지를 이미지 2로 대체
-                --tree:removeSelf()  -- 기존 나무 이미지 제거
-                display.remove(tree)
-                local tree2 = display.newImage("image/나무/t2.png")  -- 새로운 나무 이미지 생성
-                tree2.x = display.contentCenterX
-                tree2.y = display.contentCenterY
+                tree:removeSelf()  -- 기존 나무 이미지 제거
+                tree = display.newImage("image/나무/t2.png")  -- 새로운 나무 이미지 생성
+                tree.x = display.contentCenterX
+                tree.y = display.contentCenterY
 
-                transition.to(tree2, {time = 4000, alpha = 0})
+                --transition.to(tree, {time = 4000, alpha = 0})--
             -- 클릭 횟수 초기화
             waterClickCount = 0
         end
@@ -99,13 +101,12 @@ local function onWaterClick(event)
         waterClickCount = waterClickCount + 1
         if waterClickCount == 6 then
             -- 나무 이미지를 이미지 3로 대체
-                --tree:removeSelf()  -- 기존 나무 이미지 제거
-                display.remove(tree)
-                local tree3 = display.newImage("image/나무/t3.png")  -- 새로운 나무 이미지 생성
-                tree3.x = display.contentCenterX
-                tree3.y = display.contentCenterY
+                tree:removeSelf()  -- 기존 나무 이미지 제거
+                tree = display.newImage("image/나무/t3.png")  -- 새로운 나무 이미지 생성
+                tree.x = display.contentCenterX
+                tree.y = display.contentCenterY
 
-                transition.to(tree3, {time = 4000, alpha = 0})
+                --transition.to(tree, {time = 4000, alpha = 0})
             -- 클릭 횟수 초기화
             waterClickCount = 0
         end
@@ -128,13 +129,13 @@ local function onWaterClick(event)
         waterClickCount = waterClickCount + 1
         if waterClickCount == 9 then
             -- 나무 이미지를 이미지 4로 대체
-                --tree:removeSelf()  -- 기존 나무 이미지 제거
-                display.remove(tree)
-                local tree4 = display.newImage("image/나무/t4.png")  -- 새로운 나무 이미지 생성
-                tree4.x = display.contentCenterX
-                tree4.y = display.contentCenterY
+                tree:removeSelf()  -- 기존 나무 이미지 제거
+                
+                tree = display.newImage("image/나무/t4.png")  -- 새로운 나무 이미지 생성
+                tree.x = display.contentCenterX
+                tree.y = display.contentCenterY
 
-                transition.to(tree4, {time = 4000, alpha = 0})
+                --transition.to(tree4, {time = 4000, alpha = 0})
             -- 클릭 횟수 초기화
             waterClickCount = 0
         end
@@ -155,17 +156,14 @@ local function onWaterClick(event)
         waterClickCount = waterClickCount + 1
         if waterClickCount == 12 then
             -- 나무 이미지를 이미지 5로 대체
-                --tree:removeSelf()  -- 기존 나무 이미지 제거
-                display.remove(tree)
-                local tree5 = display.newImage("image/나무/t5.png")  -- 새로운 나무 이미지 생성
-                tree5.x = display.contentCenterX
-                tree5.y = display.contentCenterY
+                tree:removeSelf()  -- 기존 나무 이미지 제거
+              
+                local tree = display.newImage("image/나무/t5.png")  -- 새로운 나무 이미지 생성
+                tree.x = display.contentCenterX
+                tree.y = display.contentCenterY
 
-                --서서히 사라지게
-                transition.to(tree5, {time = 3500, alpha = 0})
+                transition.to(tree, {time = 10, alpha = 0})--
                 
-
-
 
             -- 클릭 횟수 초기화
             waterClickCount = 0
@@ -204,8 +202,6 @@ end
 water:addEventListener("touch", onWaterClick)
 
 
-
-
 --end
 ---------------------------------------------------------------------------------
 
@@ -213,6 +209,7 @@ water:addEventListener("touch", onWaterClick)
     -- 일퀘7번 종료 --
     local function questEnd(event)
         if tree_score == 20 then
+        
             display.remove(background)
             display.remove(title)
             display.remove(water)
@@ -220,12 +217,11 @@ water:addEventListener("touch", onWaterClick)
             display.remove(tree)
             --end
 
- 
-
             scene:destroy()
             composer.removeScene("quest_tree")
             composer.gotoScene("game")
-        end
+        
+        end    
     end
 
     Runtime:addEventListener("enterFrame", questEnd)
@@ -234,6 +230,13 @@ end
 
     
 ---------------------------------------------------------------------------------
+ function scene:hide( event )
+    local sceneGroup = self.view
+    
+    if event.phase == "did" then
+        score.text = score.text + 20
+    end
+ end
 
 function scene:destroy( event )
     local sceneGroup = self.view
@@ -245,6 +248,8 @@ end
 
 -- Listener setup
 scene:addEventListener( "create", scene )
+scene:addEventListener( "show", scene )
+scene:addEventListener( "hide", scene )
 scene:addEventListener( "destroy", scene )
 
 -----------------------------------------------------------------------------------------
