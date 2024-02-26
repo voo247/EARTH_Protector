@@ -431,7 +431,7 @@ function scene:create( event )
 			and player.y > quest4Icon.y - 200 and player.y < quest4Icon.y) then
 
 			questStart()
-			composer.showOverlay("quest_turnoff.fan")
+			composer.showOverlay("quest_turnoff_fan.lua")
 			display.remove(quest4Icon)
 			display.remove(quest4Alarm)
 			success.q4 = "T"
