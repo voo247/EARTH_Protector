@@ -314,6 +314,33 @@ function scene:create( event )
 		end
 	end
 
+
+
+
+		----- 일반 퀘스트 7번 실행 : 나무심기 ------------
+	local quest7Icon = display.newImage("image/배경_인물/퀘스트박스.png")
+	quest7Icon.x, quest7Icon.y = display.contentWidth*0.85, display.contentHeight*0.55
+    quest7Icon.height, quest7Icon.width = 150, 150
+
+    local quest7Alarm = display.newImage("image/퀘스트알람/퀘스트_스위치.png")
+	quest7Alarm.x, quest7Alarm.y = display.contentWidth * 0.8, display.contentHeight * 0.45
+
+
+	local function checkQuest7(quest7Icon)
+		if (player.x > quest7Icon.x - 100 and player.x < quest7Icon.x + 100
+			and player.y > quest7Icon.y - 100 and player.y < quest7Icon.y + 100) then
+
+			questStart()
+			composer.showOverlay("quest_tree")
+			display.remove(quest7Icon)
+			display.remove(quest7Alarm)
+			success.q7 = "T"
+		end
+	end
+
+
+	
+
 	local function resetPosition(event)
 	        if event.name == "restart" then
 	            player.x = respawnX
@@ -342,6 +369,9 @@ function scene:create( event )
 		end
 		if success.q6 == "F" then
 			checkQuest6(quest6Icon)
+		end
+		if success.q7 == "F" then
+			checkQuest7(quest7Icon)
 		end
 	end
 
