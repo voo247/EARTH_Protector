@@ -287,6 +287,9 @@ function scene:create( event )
 	quest6Icon.x, quest6Icon.y = display.contentWidth*0.568, display.contentHeight*0.325
 	quest6Icon.height, quest6Icon.width = 150, 150
 
+	local quest6Alarm = display.newImage("image/퀘스트알람/퀘스트_걷기.png")
+	quest6Alarm.x, quest6Alarm.y = display.contentWidth * 0.528, display.contentHeight * 0.2
+
 	local function sendPlayerPosition()
 		local playerPositionEvent = {
 			name = "playerPositionUpdate",
@@ -306,6 +309,7 @@ function scene:create( event )
 			composer.showOverlay("questWalk")
 			respawnX, respawnY = quest6Icon.x, quest6Icon.y - 80
 			display.remove(quest6Icon)
+			display.remove(quest6Alarm)
 			success.q6 = "T"
 		end
 	end
