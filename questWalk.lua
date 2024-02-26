@@ -1,4 +1,4 @@
--- 일반 퀘스트 2번 실행 : 분리수거(드래그) --
+-- 일반 퀘스트 6번 실행 : 걷기 --
 
 local composer = require( "composer" )
 local scene = composer.newScene()
@@ -93,6 +93,7 @@ function scene:create( event )
             table.remove(triangles, i)
         end
 
+        scene:destroy()
         composer.removeScene("questWalk")
         composer.gotoScene("game")
     end
@@ -129,10 +130,18 @@ function scene:create( event )
     Runtime:addEventListener("enterFrame", isPCOnLine)
 end
 
+function scene:destroy( event )
+	local sceneGroup = self.view
+	
+    local event = { name = "questEnd" }
+    Runtime:dispatchEvent(event)
+end
+
 ---------------------------------------------------------------------------------
 
 -- Listener setup
 scene:addEventListener( "create", scene )
+scene:addEventListener( "destroy", scene )
 
 -----------------------------------------------------------------------------------------
 
