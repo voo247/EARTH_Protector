@@ -60,7 +60,7 @@ function scene:create( event )
 
 
 	--- 점수 추가 -----------
-	score = display.newText(0, display.contentWidth*0.62, display.contentHeight*0.1)
+	score = display.newText(0, display.contentWidth*0.62, display.contentHeight*0.1, "source/나눔손글씨 신혼부부.ttf")
 	score.size = 100
 
 	score:setFillColor(0)
@@ -152,7 +152,7 @@ function scene:create( event )
 	            aliensCreated = 10 -- 생성된 외계인의 수를 10으로 설정하여 더 이상 생성되지 않도록 함
 	        end
 
-	        alien_timer = display.newText(15, display.contentWidth*0.355, display.contentHeight*0.1)
+	        alien_timer = display.newText(15, display.contentWidth*0.355, display.contentHeight*0.1, "source/나눔손글씨 신혼부부.ttf")
 		 	alien_timer.size = 80
 		 	alien_timer:setFillColor(1, 0, 0)
 		 	alien_timer.alpha = 0.8
