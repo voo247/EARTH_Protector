@@ -162,7 +162,10 @@ local function onWaterClick(event)
                 tree.x = display.contentCenterX
                 tree.y = display.contentCenterY
 
-                transition.to(tree, {time = 10, alpha = 0})--
+                -- transition.to(tree, {time = 1400, alpha = 0})  -- 나무 이미지 제거
+                timer.performWithDelay(1000, function()
+                    tree.x = 3000
+                end)
                 
 
             -- 클릭 횟수 초기화
@@ -210,11 +213,14 @@ water:addEventListener("touch", onWaterClick)
     local function questEnd(event)
         if tree_score == 20 then
         
-            display.remove(background)
-            display.remove(title)
-            display.remove(water)
-            display.remove(basket)
-            display.remove(tree)
+            timer.performWithDelay(1000, function()
+                display.remove(background)
+                display.remove(title)
+                display.remove(water)
+                display.remove(basket)
+                display.remove(tree)
+
+            end)
             --end
 
             scene:destroy()
@@ -230,13 +236,6 @@ end
 
     
 ---------------------------------------------------------------------------------
- function scene:hide( event )
-    local sceneGroup = self.view
-    
-    if event.phase == "did" then
-        score.text = score.text + 20
-    end
- end
 
 function scene:destroy( event )
     local sceneGroup = self.view
@@ -248,8 +247,6 @@ end
 
 -- Listener setup
 scene:addEventListener( "create", scene )
-scene:addEventListener( "show", scene )
-scene:addEventListener( "hide", scene )
 scene:addEventListener( "destroy", scene )
 
 -----------------------------------------------------------------------------------------
