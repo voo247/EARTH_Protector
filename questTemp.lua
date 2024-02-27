@@ -57,6 +57,7 @@ function scene:create( event )
 	local function questEnd(event)
         if(numberText.text == "26") then
         	display.remove(air)
+		audio.play(audio.loadSound("효과음/에어컨.mp3"))	
         	numberText:setFillColor( 0.9, 0, 0.1 )
 
         	timer.performWithDelay(1000, function()
