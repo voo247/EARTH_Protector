@@ -48,6 +48,7 @@ function scene:create(event)
             basket:removeSelf()  -- 이전에 생성된 씨앗 이미지 제거
         end
         -- 새로운 씨앗 이미지 생성
+        audio.play(audio.loadSound("효과음/바구니.mp3"))
         basket = display.newImage("image/나무/씨앗_사용후png.png")
         basket.x, basket.y = display.contentWidth * 0.2, display.contentHeight * 0.8
         basket.height = 300
@@ -59,9 +60,13 @@ function scene:create(event)
     tree.y = display.contentCenterY
     end
 end
-
 -- 씨앗 이미지에 클릭 이벤트 리스너 추가
 basket:addEventListener("touch", onBasketClick)
+
+--효과음 함수
+local function sound()
+    audio.play(audio.loadSound("효과음/퐁.mp3"))
+end
 
     ----------이미지1이 이미지2로--------------
     local waterClickCount1 = 0
@@ -76,7 +81,7 @@ local function onWaterClick(event)
                 tree = display.newImage("image/나무/t2.png")  -- 새로운 나무 이미지 생성
                 tree.x = display.contentCenterX
                 tree.y = display.contentCenterY
-
+                sound()
                 --transition.to(tree, {time = 4000, alpha = 0})--
             -- 클릭 횟수 초기화
             -- waterClickCount = 0
@@ -106,7 +111,7 @@ local function onWaterClick(event)
                 tree = display.newImage("image/나무/t3.png")  -- 새로운 나무 이미지 생성
                 tree.x = display.contentCenterX
                 tree.y = display.contentCenterY
-
+                sound()
                 --transition.to(tree, {time = 4000, alpha = 0})
             -- 클릭 횟수 초기화
             -- waterClickCount = 0
@@ -135,7 +140,7 @@ local function onWaterClick(event)
                 tree = display.newImage("image/나무/t4.png")  -- 새로운 나무 이미지 생성
                 tree.x = display.contentCenterX
                 tree.y = display.contentCenterY
-
+                sound()
                 --transition.to(tree4, {time = 4000, alpha = 0})
             -- 클릭 횟수 초기화
             -- waterClickCount = 0
@@ -162,7 +167,7 @@ local function onWaterClick(event)
                 local tree = display.newImage("image/나무/t5.png")  -- 새로운 나무 이미지 생성
                 tree.x = display.contentCenterX
                 tree.y = display.contentCenterY
-
+                sound()
                 -- transition.to(tree, {time = 1400, alpha = 0})  -- 나무 이미지 제거
                 timer.performWithDelay(1000, function()
                     tree.x = 3000
