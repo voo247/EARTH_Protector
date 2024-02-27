@@ -24,19 +24,19 @@ function scene:create( event )
     button1.x = button1.x - 95
     button1.y = button1.y + 240
 
-    local button2 = display.newRect(display.contentCenterX, display.contentCenterY, 80, 50)
+    local button2 = display.newRect(display.contentCenterX, display.contentCenterY, 80, 30)
     button2.x = button2.x + 210
     button2.y = button2.y + 70
 
     local button3 = display.newRect(display.contentCenterX, display.contentCenterY, 80, 50)
     button3.x = button3.x + 210
     button3.y = button3.y + 120
+    button3:setFillColor(0,0,1)
 
     local fan1 = display.newImage("image/선풍기/선풍기1.png")
     fan1.height = 500
     fan1.width = 520
     fan1.x, fan1.y = display.contentHeight*0.9, display.contentWidth*0.3
-
     local function tapEvent1( event )
         fan2 = display.newImage("image/선풍기/선풍기2.png")
         fan2.height = 500
