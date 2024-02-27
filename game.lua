@@ -557,6 +557,18 @@ function scene:create( event )
 				checkQuest7(quest7Icon)
 			end
 		end
+
+		-- 엔딩 씬 --
+		local function endingScene()
+			composer.gotoScene("endingScene", {params = {score = tonumber(score.text)}})
+			removeAll()
+			hide()
+			composer.removeScene('game')
+		end
+		
+		if endingTimer == nil or endingTimer._cancelled then
+			endingTimer = timer.performWithDelay(75000, endingScene)
+		end
 	end
 
 	Runtime:addEventListener("enterFrame", onEnterFrame)
