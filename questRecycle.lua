@@ -109,27 +109,35 @@ function scene:create( event )
                 event.target.isFocus = false
                 if(event.target == trash[1] and isOverlap(trashWaste, trash[1])) then
                     event.target.isVisible = false
+                    audio.play(audio.loadSound("효과음/waste.mp3"))
                     visibleTrash = visibleTrash - 1
                 elseif (event.target == trash[2] and isOverlap(trashGlass, trash[2])) then
                     event.target.isVisible = false
+                    audio.play(audio.loadSound("효과음/glass.mp3"))
                     visibleTrash = visibleTrash - 1
                 elseif (event.target == trash[3] and isOverlap(trashPlastic, trash[3])) then
                     event.target.isVisible = false
+                    audio.play(audio.loadSound("효과음/plastic.mp3"))
                     visibleTrash = visibleTrash - 1
                 elseif (event.target == trash[4] and isOverlap(trashWaste, trash[4])) then
                     event.target.isVisible = false
+                    audio.play(audio.loadSound("효과음/waste.mp3"))
                     visibleTrash = visibleTrash - 1
                 elseif (event.target == trash[5] and isOverlap(trashGlass, trash[5])) then
                     event.target.isVisible = false
+                    audio.play(audio.loadSound("효과음/glass.mp3"))
                     visibleTrash = visibleTrash - 1
                 elseif (event.target == trash[6] and isOverlap(trashPlastic, trash[6])) then
                     event.target.isVisible = false
+                    audio.play(audio.loadSound("효과음/plastic.mp3"))
                     visibleTrash = visibleTrash - 1
                 elseif (event.target == trash[7] and isOverlap(trashWaste, trash[7])) then
                     event.target.isVisible = false
+                    audio.play(audio.loadSound("효과음/waste.mp3"))
                     visibleTrash = visibleTrash - 1
                 elseif (event.target == trash[8] and isOverlap(trashCan, trash[8])) then
                     event.target.isVisible = false
+                    audio.play(audio.loadSound("효과음/can.mp3"))
                     visibleTrash = visibleTrash - 1
                 end
             else
