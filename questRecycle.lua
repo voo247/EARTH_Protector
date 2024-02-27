@@ -15,7 +15,7 @@ function scene:create( event )
     background:setStrokeColor( 0.6 )
     background:setFillColor(1, 1, 0.9 )
 
-    local title = display.newText("분리수거", display.contentWidth/2, display.contentHeight*0.2, "source/나눔손글씨 신혼부부.ttf")
+    local title = display.newText("분리수거를 해주세요!", display.contentWidth/2, display.contentHeight*0.2, "source/나눔손글씨 신혼부부.ttf")
     title:setFillColor( 0.6 )
     title.size = 70
 
