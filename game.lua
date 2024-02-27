@@ -649,7 +649,7 @@ function scene:create( event )
 	end
 
 	local function isEnd()
-		if tonumber(time.text) == 59 or tonumber(questCount.text) == 7 then
+		if tonumber(time.text) == 0 or tonumber(questCount.text) == 7 then
 			endingScene()
 		end
 	end
