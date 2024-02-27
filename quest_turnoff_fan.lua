@@ -48,6 +48,7 @@ function scene:create( event )
     local function tapEvent1( event )        
             fan:removeSelf()
             fan = display.newImage("image/선풍기/선풍기2.png")
+            audio.play(audio.loadSound("효과음/전원.mp3"))
             fan.height = 500
             fan.width = 520
             fan.x, fan.y = display.contentHeight*0.9, display.contentWidth*0.3
@@ -59,6 +60,7 @@ function scene:create( event )
         if b1 == true then
         fan:removeSelf()
         fan = display.newImage("image/선풍기/선풍기3.png")
+        audio.play(audio.loadSound("효과음/코드.mp3"))
         fan.height = 500
         fan.width = 520
         fan.x, fan.y = display.contentHeight*0.9, display.contentWidth*0.3
