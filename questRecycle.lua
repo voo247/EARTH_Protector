@@ -32,6 +32,7 @@ function scene:create( event )
     end
 
     -- 쓰레기통 구현 --
+    
     local trashCan = display.newImage("image/자료2/쓰레기통_can.png")
     trashCan.x, trashCan.y = display.contentWidth * 0.2475, display.contentHeight * 0.52
     trashCan.height, trashCan.width = trashCan.height * 2., trashCan.width * 2
@@ -44,6 +45,10 @@ function scene:create( event )
     local trashWaste = display.newImage("image/자료2/쓰레기통_waste.png")
     trashWaste.x, trashWaste.y = display.contentWidth * 0.7425, display.contentHeight * 0.52
     trashWaste.height, trashWaste.width = trashWaste.height * 2, trashWaste.width * 2
+    
+    local label = display.newText("캔         유리       플라스틱    일반쓰레기 ", display.contentWidth*0.53, display.contentHeight*0.3, "source/나눔손글씨 신혼부부.ttf")
+    label.size = 90
+	label:setFillColor(0.6)
     
     -- 쓰레기 랜덤 배치 --
     local imagePaths = {
@@ -147,6 +152,7 @@ function scene:create( event )
             display.remove(trashGlass)
             display.remove(trashPlastic)
             display.remove(trashWaste)
+            display.remove(label)
             for i = 1, 8 do
                 display.remove(trash[i])
             end
