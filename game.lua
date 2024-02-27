@@ -602,6 +602,7 @@ function scene:create( event )
 
 	Runtime:addEventListener("enterFrame", onEnterFrame)
 
+    local enddd
 	-- 엔딩 씬 --
 	local function endingScene()
 		local ending
@@ -614,7 +615,7 @@ function scene:create( event )
 			audio.play(audio.loadStream("source/서브엔딩_Bright 1.mp3"), { loops = -1 })
 		else
 			ending = display.newImageRect("image/엔딩/엔딩1.png", display.contentWidth, display.contentHeight)
-			audio.play(audio.loadStream("source/배드엔딩_Error 6_한 번 노출.mp3"), { loops = -1 })
+			audio.play(audio.loadStream("source/배드엔딩_Error 6_한 번 노출.mp3"))
 		end
 		ending.x, ending.y = display.contentWidth/2, display.contentHeight/2
 
@@ -649,7 +650,8 @@ function scene:create( event )
 	end
 
 	local function isEnd()
-		if tonumber(time.text) == 0 or tonumber(questCount.text) == 7 then
+		if tonumber(time.text) == 59 or tonumber(questCount.text) == 7 and enddd == nil then
+        enddd = "T"
 			endingScene()
 		end
 	end
