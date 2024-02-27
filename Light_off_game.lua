@@ -50,6 +50,7 @@ function scene:create( event )
         if switchCount == 0 then
         local timeAttack = timer.performWithDelay(1000, questEnd)
         display.remove(switchOn) 
+	audio.play(audio.loadSound("효과음/스위치.mp3"))
         switchOff = display.newImage("image/퀘스트_자전거_스위치/스위치2.png")
         switchOff.height = 500
         switchOff.width = 350
