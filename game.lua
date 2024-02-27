@@ -379,6 +379,11 @@ function scene:create( event )
 	local function checkQuest1(quest1Icon)
 		if (player.x > quest1Icon.x - 100 and player.x < quest1Icon.x + 100
 			and player.y > quest1Icon.y - 200 and player.y < quest1Icon.y) then
+			questCount.text = questCount.text + 1
+				
+				if tonumber(questCount.text) == 5 and q6Start == nil then
+					quest6Start()
+				end
 
 			questStart()
 			composer.showOverlay("light_off_game")
@@ -386,7 +391,6 @@ function scene:create( event )
 			display.remove(quest1Alarm)
 			success.q1 = "T"
 			score.text = score.text + 10
-			questCount.text = questCount.text + 1
 		end
 	end
 
@@ -403,6 +407,11 @@ function scene:create( event )
 	local function checkQuest2(quest2Icon)
 		if (player.x > quest2Icon.x - 100 and player.x < quest2Icon.x + 100
 			and player.y > quest2Icon.y - 200 and player.y < quest2Icon.y) then
+			questCount.text = questCount.text + 1
+				
+				if tonumber(questCount.text) == 5 and q6Start == nil then
+					quest6Start()
+				end
 
 			questStart()
 			composer.showOverlay("questRecycle")
@@ -410,7 +419,6 @@ function scene:create( event )
 			display.remove(quest2Alarm)
 			success.q2 = "T"
 			score.text = score.text + 20
-			questCount.text = questCount.text + 1
 		end
 	end
 
@@ -427,6 +435,11 @@ function scene:create( event )
 	local function checkQuest3(quest3Icon)
 		if (player.x > quest3Icon.x - 100 and player.x < quest3Icon.x + 100
 			and player.y > quest3Icon.y - 200 and player.y < quest3Icon.y) then
+			questCount.text = questCount.text + 1
+				
+				if tonumber(questCount.text) == 5 and q6Start == nil then
+					quest6Start()
+				end
 
 			questStart()
 			composer.showOverlay("questTemp")
@@ -434,7 +447,6 @@ function scene:create( event )
 			display.remove(quest3Alarm)
 			success.q3 = "T"
 			score.text = score.text + 15
-			questCount.text = questCount.text + 1
 		end
 	end
 
@@ -451,6 +463,11 @@ function scene:create( event )
 	local function checkQuest4(quest4Icon)
 		if (player.x > quest4Icon.x - 100 and player.x < quest4Icon.x + 100
 			and player.y > quest4Icon.y - 200 and player.y < quest4Icon.y) then
+			questCount.text = questCount.text + 1
+				
+				if tonumber(questCount.text) == 5 and q6Start == nil then
+					quest6Start()
+				end
 
 			questStart()
 			composer.showOverlay("quest_turnoff_fan")
@@ -458,53 +475,70 @@ function scene:create( event )
 			display.remove(quest4Alarm)
 			success.q4 = "T"
 			score.text = score.text + 15
-			questCount.text = questCount.text + 1
 		end
 	end
 
 	
 	-- 일반 퀘스트 6번 : 걷기 --
-	local quest6Icon = display.newImage("image/배경_인물/퀘스트박스.png")
-	quest6Icon.x, quest6Icon.y = display.contentWidth*0.568, display.contentHeight*0.325
-	quest6Icon.height, quest6Icon.width = 150, 150
+	local q6Start
+	local function quest6Start()
+		q6Start = "T"
+		local quest6Icon = display.newImage("image/배경_인물/퀘스트박스.png")
+		quest6Icon.x, quest6Icon.y = display.contentWidth*0.568, display.contentHeight*0.325
+		quest6Icon.height, quest6Icon.width = 150, 150
 
-	local quest6Alarm = display.newImage("image/퀘스트알람/퀘스트_걷기.png")
-	quest6Alarm.x, quest6Alarm.y = display.contentWidth * 0.528, display.contentHeight * 0.2
-	
-	local function sendPlayerPosition()
-		local playerPositionEvent = {
-			name = "playerPositionUpdate",
-			x = player.x,
-			y = player.y
-		}
-		Runtime:dispatchEvent(playerPositionEvent)
-	end
+		local quest6Alarm = display.newImage("image/퀘스트알람/퀘스트_걷기.png")
+		quest6Alarm.x, quest6Alarm.y = display.contentWidth * 0.528, display.contentHeight * 0.2
+		
+		local function sendPlayerPosition()
+			local playerPositionEvent = {
+				name = "playerPositionUpdate",
+				x = player.x,
+				y = player.y
+			}
+			Runtime:dispatchEvent(playerPositionEvent)
+		end
 
-	Runtime:addEventListener("enterFrame", sendPlayerPosition)
+		Runtime:addEventListener("enterFrame", sendPlayerPosition)
 
-	local responeX, respawnY
-	local function checkQuest6(quest6Icon)
-		if (player.x > quest6Icon.x - 60 and player.x < quest6Icon.x + 60
-			and player.y > quest6Icon.y - 200 and player.y < quest6Icon.y) then
-			--questStart()
-			specialQ1Start()
-			questIng = "T"
-			composer.showOverlay("questWalk")
-			respawnX, respawnY = quest6Icon.x, quest6Icon.y - 100
-			display.remove(quest6Icon)
-			display.remove(quest6Alarm)
-			success.q6 = "T"
-			score.text = score.text + 10
-			questCount.text = questCount.text + 1
+		local responeX, respawnY
+		local function checkQuest6(quest6Icon)
+			if (player.x > quest6Icon.x - 60 and player.x < quest6Icon.x + 60
+				and player.y > quest6Icon.y - 200 and player.y < quest6Icon.y) then
+				--questStart()
+				specialQ1Start()
+				questIng = "T"
+				composer.showOverlay("questWalk")
+				respawnX, respawnY = quest6Icon.x, quest6Icon.y - 100
+				display.remove(quest6Icon)
+				display.remove(quest6Alarm)
+				success.q6 = "T"
+				score.text = score.text + 10
+				questCount.text = questCount.text + 1
+			end
+		end
+
+		local function resetPosition(event)
+				if event.name == "restart" then
+					player.x = respawnX
+					player.y = respawnY
+					playerX, playerY = player.x, player.y
+				end
+		end
+	    
+		Runtime:addEventListener("restart", resetPosition)
+
+		
+
+	local function onEnterFrame6(event)
+		if(questIng == "F") then
+			if tonumber(questCount.text) >= 5 and success.q6 == "F" and q6Start == "T" then
+				checkQuest6(quest6Icon)
+			end
 		end
 	end
 
-	local function resetPosition(event)
-	        if event.name == "restart" then
-	            player.x = respawnX
-				player.y = respawnY
-				playerX, playerY = player.x, player.y
-	        end
+	Runtime:addEventListener("enterFrame", onEnterFrame6)
 	end
 
 
@@ -522,6 +556,11 @@ function scene:create( event )
 	local function checkQuest7(quest7Icon)
 		if (player.x > quest7Icon.x - 100 and player.x < quest7Icon.x + 100
 			and player.y > quest7Icon.y - 200 and player.y < quest7Icon.y) then
+			questCount.text = questCount.text + 1
+				
+			if tonumber(questCount.text) == 5 and q6Start == nil then
+				quest6Start()
+			end
 
 			questStart()
 			composer.showOverlay("quest_tree")
@@ -529,11 +568,8 @@ function scene:create( event )
 			display.remove(quest7Alarm)
 			success.q7 = "T"
 			score.text = score.text + 20
-			questCount.text = questCount.text + 1
 		end
 	end
-	    
-	Runtime:addEventListener("restart", resetPosition)
 	
 	
 
@@ -556,9 +592,9 @@ function scene:create( event )
 			if success.q4 == "F" then
 				checkQuest4(quest4Icon)
 			end
-			if success.q6 == "F" then
+			--[[if tonumber(questCount.text) >= 5 and success.q6 == "F" and q6Start == "T" then
 				checkQuest6(quest6Icon)
-			end
+			end]]
 			if success.q7 == "F" then
 				checkQuest7(quest7Icon)
 			end
@@ -577,8 +613,32 @@ function scene:create( event )
 		else
 			ending = display.newImageRect("image/엔딩/엔딩1.png", display.contentWidth, display.contentHeight)
 		end
-
 		ending.x, ending.y = display.contentWidth/2, display.contentHeight/2
+
+		local quit = display.newImage("image/엔딩/나가기.png")
+		quit.width = 350
+		quit.height = 180
+		quit.x, quit.y = display.contentWidth*0.25, display.contentHeight*0.89
+
+		
+        local authorship = display.newImage("image/엔딩/재시작버튼.png") --저작권 버튼으로 바꿔주심이 좋을 듯 합니다
+        authorship.width = 350
+        authorship.height = 180
+        authorship.x, authorship.y = display.contentWidth*0.75, display.contentHeight*0.89
+
+		local function clickAuthorship(event)
+            if event.phase == "ended" then
+            end
+        end
+
+		local function clickQuit(event)
+			if event.phase == "ended" then
+				os.exit()
+			end
+		end
+		
+        authorship:addEventListener("touch", clickAuthorship)
+        quit:addEventListener("touch", clickQuit)
 	end
 
 	local function isEnd()
