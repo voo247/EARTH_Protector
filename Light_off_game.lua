@@ -29,6 +29,7 @@ function scene:create( event )
     switchOn.width = 350
     switchOn.x, switchOn.y = display.contentHeight*0.9, display.contentWidth*0.3
     
+    local switchCount = 0;
     
 
         ----------퀘스트 완료 후에 종료----------
@@ -46,12 +47,15 @@ function scene:create( event )
     end
  
     function tapEvent1( event )
+        if switchCount == 0 then
         local timeAttack = timer.performWithDelay(1000, questEnd)
         display.remove(switchOn) 
         switchOff = display.newImage("image/퀘스트_자전거_스위치/스위치2.png")
-    switchOff.height = 500
-    switchOff.width = 350
-    switchOff.x, switchOff.y = display.contentHeight*0.9, display.contentWidth*0.3       
+        switchOff.height = 500
+        switchOff.width = 350
+        switchOff.x, switchOff.y = display.contentHeight*0.9, display.contentWidth*0.3     
+        switchCount = switchCount + 1  
+        end
     end
     button:addEventListener("tap", tapEvent1)
 end
