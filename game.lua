@@ -624,19 +624,14 @@ function scene:create( event )
 		quit.x, quit.y = display.contentWidth*0.25, display.contentHeight*0.89
 
 		
-        local authorship = display.newImage("image/엔딩/재시작버튼.png") --저작권 버튼으로 바꿔주심이 좋을 듯 합니다
+        local authorship = display.newImage("image/엔딩/저작권.png") --저작권 버튼으로 바꿔주심이 좋을 듯 합니다
         authorship.width = 350
         authorship.height = 180
         authorship.x, authorship.y = display.contentWidth*0.75, display.contentHeight*0.89
+		
 		local function authorshipInfo1()
-			local background = display.newRoundedRect(display.contentWidth/2, display.contentHeight/2, display.contentWidth*0.85, display.contentHeight*0.75, 55)
-			background.strokeWidth = 10
-			background:setStrokeColor( 0.6 )
-			background:setFillColor(1, 1, 0.9 )
-
-			local authorshipInfo = display.newImage("image/엔딩/저작권.png")
-			authorshipInfo.width, authorshipInfo.height = display.contentWidth, display.contentHeight
-			authorshipInfo.x, authorshipInfo.y = display.contentWidth * 0.5, display.contentHeight * 0.5
+			local info = display.newImageRect("image/엔딩/출처.png", display.contentWidth, display.contentHeight)
+			info.x, info.y = display.contentWidth/2, display.contentHeight/2
 		end
 
 		local function clickAuthorship(event)
@@ -654,7 +649,7 @@ function scene:create( event )
 	end
 
 	local function isEnd()
-		if tonumber(time.text) == 0 or tonumber(questCount.text) == 7 then
+		if tonumber(time.text) == 59 or tonumber(questCount.text) == 7 then
 			endingScene()
 		end
 	end
