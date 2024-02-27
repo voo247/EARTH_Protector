@@ -42,6 +42,7 @@ function scene:create( event )
     --- 온도 조절하기 --------------
 
     local function Tap_temp(event)
+	audio.play(audio.loadSound("효과음/퐁.mp3"))
 	    if event.y < display.contentHeight*0.75 then 
 	        numberText.text = numberText.text + 0.5
 	    else
