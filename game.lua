@@ -136,6 +136,15 @@ function scene:create( event )
 	end
 
 	timeAttack = timer.performWithDelay(1000, counter, 75)
+
+	--- 퀘스트 완료 추가 --------
+	questCount = display.newText(0, display.contentWidth*0.08, display.contentHeight*0.095, "source/나눔손글씨 신혼부부.ttf")
+	questAllCount = display.newText("/ 7", display.contentWidth*0.125, display.contentHeight*0.095, "source/나눔손글씨 신혼부부.ttf")
+	questCount.size = 90
+	questAllCount.size = 90
+	questCount:setFillColor(1, 1, 1)
+	questAllCount:setFillColor(1, 1, 1)
+	
 	
 	-- 랜덤 좌표 지정 --
 	math.randomseed(os.time())
@@ -288,7 +297,7 @@ function scene:create( event )
 				alien_timer.alpha = 0
 				timer.pause( alien_timeAttack )
 				accept.x = 3000
-
+				questCount.text = questCount.text + 1
 				success.specialQ1 = "T"
 				questEnd()
 			elseif(alien_timer.text == '-1' and alien_score < 30) then
@@ -371,6 +380,7 @@ function scene:create( event )
 			display.remove(quest1Alarm)
 			success.q1 = "T"
 			score.text = score.text + 10
+			questCount.text = questCount.text + 1
 		end
 	end
 
@@ -394,6 +404,7 @@ function scene:create( event )
 			display.remove(quest2Alarm)
 			success.q2 = "T"
 			score.text = score.text + 20
+			questCount.text = questCount.text + 1
 		end
 	end
 
@@ -417,6 +428,7 @@ function scene:create( event )
 			display.remove(quest3Alarm)
 			success.q3 = "T"
 			score.text = score.text + 15
+			questCount.text = questCount.text + 1
 		end
 	end
 
@@ -440,6 +452,7 @@ function scene:create( event )
 			display.remove(quest4Alarm)
 			success.q4 = "T"
 			score.text = score.text + 15
+			questCount.text = questCount.text + 1
 		end
 	end
 
@@ -476,6 +489,7 @@ function scene:create( event )
 			display.remove(quest6Alarm)
 			success.q6 = "T"
 			score.text = score.text + 10
+			questCount.text = questCount.text + 1
 		end
 	end
 
@@ -509,6 +523,7 @@ function scene:create( event )
 			display.remove(quest7Alarm)
 			success.q7 = "T"
 			score.text = score.text + 20
+			questCount.text = questCount.text + 1
 		end
 	end
 	    
