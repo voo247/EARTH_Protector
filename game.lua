@@ -13,7 +13,6 @@ function scene:create( event )
 
 	physics.start()
 	physics.setDrawMode("hybrid")
-	
 
 	--- 배경 추가------------
 	local background = display.newImageRect("image/배경_인물/배경.png", display.contentWidth, display.contentHeight)
@@ -606,12 +605,16 @@ function scene:create( event )
 	-- 엔딩 씬 --
 	local function endingScene()
 		local ending
+		audio.stop()
 		if(100 <= tonumber(score.text)) then
 			ending = display.newImageRect("image/엔딩/엔딩3.png", display.contentWidth, display.contentHeight)
+			audio.play(audio.loadStream("source/해피엔딩_Bright 6.mp3"), { loops = -1 })
 		elseif 50 <= tonumber(score.text) then
 			ending = display.newImageRect("image/엔딩/엔딩2.png", display.contentWidth, display.contentHeight)
+			audio.play(audio.loadStream("source/서브엔딩_Bright 1.mp3"), { loops = -1 })
 		else
 			ending = display.newImageRect("image/엔딩/엔딩1.png", display.contentWidth, display.contentHeight)
+			audio.play(audio.loadStream("source/배드엔딩_Error 6_한 번 노출.mp3"), { loops = -1 })
 		end
 		ending.x, ending.y = display.contentWidth/2, display.contentHeight/2
 
@@ -625,10 +628,19 @@ function scene:create( event )
         authorship.width = 350
         authorship.height = 180
         authorship.x, authorship.y = display.contentWidth*0.75, display.contentHeight*0.89
+		local function authorshipInfo1()
+			local background = display.newRoundedRect(display.contentWidth/2, display.contentHeight/2, display.contentWidth*0.85, display.contentHeight*0.75, 55)
+			background.strokeWidth = 10
+			background:setStrokeColor( 0.6 )
+			background:setFillColor(1, 1, 0.9 )
+
+			local authorshipInfo = display.newImage("image/엔딩/저작권.png")
+			authorshipInfo.width, authorshipInfo.height = display.contentWidth, display.contentHeight
+			authorshipInfo.x, authorshipInfo.y = display.contentWidth * 0.5, display.contentHeight * 0.5
+		end
 
 		local function clickAuthorship(event)
-            if event.phase == "ended" then
-            end
+			authorshipInfo1()
         end
 
 		local function clickQuit(event)
