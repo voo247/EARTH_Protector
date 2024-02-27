@@ -126,7 +126,7 @@ function scene:create( event )
  	score:setFillColor(1, 1, 1)
 
 	--- 타이머 추가 -----------
-	local time = display.newText(75, display.contentWidth * 0.365, display.contentHeight * 0.095, "source/나눔손글씨 신혼부부.ttf")
+	local time = display.newText(60, display.contentWidth * 0.365, display.contentHeight * 0.095, "source/나눔손글씨 신혼부부.ttf")
 	time.size = 70
 	time:setFillColor(1, 1, 1)
 	local timeAttack
@@ -135,7 +135,7 @@ function scene:create( event )
 	    time.text = time.text - 1
 	end
 
-	timeAttack = timer.performWithDelay(1000, counter, 75)
+	timeAttack = timer.performWithDelay(1000, counter, 60)
 
 	--- 퀘스트 완료 추가 --------
 	questCount = display.newText(0, display.contentWidth*0.08, display.contentHeight*0.095, "source/나눔손글씨 신혼부부.ttf")
@@ -563,21 +563,32 @@ function scene:create( event )
 				checkQuest7(quest7Icon)
 			end
 		end
-
-		-- 엔딩 씬 --
-		local function endingScene()
-			composer.gotoScene("endingScene", {params = {score = tonumber(score.text)}})
-			removeAll()
-			hide()
-			composer.removeScene('game')
-		end
-		
-		if endingTimer == nil or endingTimer._cancelled then
-			endingTimer = timer.performWithDelay(75000, endingScene)
-		end
 	end
 
 	Runtime:addEventListener("enterFrame", onEnterFrame)
+
+	-- 엔딩 씬 --
+	local function endingScene()
+		local ending
+		if(100 <= tonumber(score.text)) then
+			ending = display.newImageRect("image/엔딩/엔딩3.png", display.contentWidth, display.contentHeight)
+		elseif 50 <= tonumber(score.text) then
+			ending = display.newImageRect("image/엔딩/엔딩2.png", display.contentWidth, display.contentHeight)
+		else
+			ending = display.newImageRect("image/엔딩/엔딩1.png", display.contentWidth, display.contentHeight)
+		end
+
+		ending.x, ending.y = display.contentWidth/2, display.contentHeight/2
+	end
+
+	local function isEnd()
+		if tonumber(time.text) == 0 or tonumber(questCount.text) == 7 then
+			endingScene()
+		end
+	end
+
+
+	Runtime:addEventListener("enterFrame", isEnd)
 	
 
 
