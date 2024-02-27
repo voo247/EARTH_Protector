@@ -271,10 +271,15 @@ function scene:create( event )
 			alien.x, alien.y = math.random(display.contentWidth), math.random(display.contentHeight)
 			
 			-- 외계인 터치 이벤트 처리
+			local function playSound()
+				local soundID = audio.loadSound("효과음/총쏘기.mp3")
+				audio.play(soundID)
+			end
 			local function onTouch(event)
 				if event.phase == "began" then
 					display.remove(alien)
 					alien_score = alien_score + 3
+					playSound()
 				end
 				return true
 			end
@@ -343,6 +348,7 @@ function scene:create( event )
 				-- 캐릭터 이미지를 캐릭터_총 이미지로 변경
 				display.remove(player)
 				player = display.newImage("image/자료2/캐릭터_총.png")
+				audio.play(audio.loadSound("효과음/총소지.mp3"))
 				player.x, player.y = display.contentWidth*0.71, display.contentHeight*0.85
 			end
 		end
