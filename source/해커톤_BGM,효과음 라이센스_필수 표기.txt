@@ -1,0 +1,118 @@
+효과음_셀바이뮤직
+
+배경 4번
+해커톤_Speak The Truth - Go By Ocean _ Ryan McCaffrey{배경4}
+<유튜브 라이브러리-저작권 표시 불필요>
+
+<게임 진행>
+Blop sound
+✔ SFX provided by 셀바이뮤직
+https://sellbuymusic.com/md/srgdcbb-acwtxzw
+
+Correct 2
+✔ SFX provided by 셀바이뮤직
+https://sellbuymusic.com/md/sdyncwt-icwtxzw
+
+Stapler Sound
+✔ SFX provided by 셀바이뮤직
+https://sellbuymusic.com/md/slgnkzc-jcwtxzw
+
+스퀘_수락 시 경고알림_Beep Long 2
+✔ SFX provided by 셀바이뮤직
+https://sellbuymusic.com/md/srancnw-ucwtxzw
+
+일퀘_수락 시 효과음_Pling Sound
+✔ SFX provided by 셀바이뮤직
+https://sellbuymusic.com/md/sadjqzx-gcwtxzw
+
+캐릭터 걸음_Woosh sound_일퀘6번
+✔ SFX provided by 셀바이뮤직
+https://sellbuymusic.com/md/srpqcbw-dcwtxzw
+
+퀘스트 클리어_Coin 1
+✔ SFX provided by 셀바이뮤직
+https://sellbuymusic.com/md/salncwf-lcwtxzw
+
+<스퀘(외계인)>
+
+외계인 등장1_mysterious disappearance 2
+✔ SFX provided by 셀바이뮤직
+https://sellbuymusic.com/md/sojckzw-rcwtxzw
+
+외계인 등장2_mysterious appearance 3_택 1해서 사용
+✔ SFX provided by 셀바이뮤직
+https://sellbuymusic.com/md/sojckzw-rcwtxzw
+
+총 소지_Shotgun Reload Old Sound
+✔ SFX provided by 셀바이뮤직
+https://sellbuymusic.com/md/sdggjfk-lcwtxzw
+
+총 쏘는 소리(처치)_Swell 4
+✔ SFX provided by 셀바이뮤직
+https://sellbuymusic.com/md/sgrnzkn-lcwtxzw
+
+<엔딩>
+
+배드엔딩_Error 6_한 번 노출
+✔ SFX provided by 셀바이뮤직
+https://sellbuymusic.com/md/sdunfwc-icwtxzw
+
+서브엔딩_Bright 1
+✔ SFX provided by 셀바이뮤직
+https://sellbuymusic.com/md/sqonhkh-vcwtxzw
+
+해피엔딩_Bright 6
+✔ SFX provided by 셀바이뮤직
+https://sellbuymusic.com/md/savnhnf-ocwtxzw
+
+<일퀘>
+1)전기 스위치 클릭_Click2 Sound
+✔ SFX provided by 셀바이뮤직
+https://sellbuymusic.com/md/saplbww-ocwtxzw
+
+2)쓰레기 분리수거
+can_Dumping Cans in Cart Far_쓰레기 투척
+<유튜브 라이브러리-저작권 표시 불필요>
+
+glass_Trash Dropping in Dumpster_쓰레기
+<유튜브 라이브러리-저작권 표시 불필요>
+
+plastic_Metal Trash Can Filled_쓰레기
+<유튜브 라이브러리-저작권 표시 불필요>
+
+waste_Paper Stacking_쓰레기
+<유튜브 라이브러리-저작권 표시 불필요>
+
+3)에어컨 온도 조정
+에어컨 온도 조정_Electronic Chime Sound
+✔ SFX provided by 셀바이뮤직
+https://sellbuymusic.com/md/surartc-lcwtxzw
+
+4)선풍기
+전원버튼 클릭_Click Button 2 Sound
+✔ SFX provided by 셀바이뮤직
+https://sellbuymusic.com/md/sqqdbkh-ucwtxzw
+
+코드 뽑기_Power plug Pull 1_클릭 2번 분할사용
+✔ SFX provided by 셀바이뮤직
+https://sellbuymusic.com/md/syucknx-dcwtxzw
+
+5)수도꼭지
+물나오는소리_Faucet Water 2_뒷부분사용_
+✔ SFX provided by 셀바이뮤직
+https://sellbuymusic.com/md/syvnzxh-ecwtxzw
+
+
+6)걷기_스퀘,진행상황과 연동(WOOSH SOUND)
+✔ SFX provided by 셀바이뮤직
+https://sellbuymusic.com/md/srpqcbw-dcwtxzw
+
+7)나무심기
+물뿌리개클릭&나무 성장_Pop up 2
+✔ SFX provided by 셀바이뮤직
+https://sellbuymusic.com/md/sgunxkh-pcwtxzw
+
+씨앗 바구니 클릭_Transition 3
+✔ SFX provided by 셀바이뮤직
+https://sellbuymusic.com/md/sjantkc-gcwtxzw
+
